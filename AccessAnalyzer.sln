@@ -5,7 +5,15 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AccessAnalyzer", "AccessAnalyzer\AccessAnalyzer.csproj", "{3E5EEE8D-E905-47AF-BE70-18924ACF12AB}"
 EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "RefererAnalyzer", "RefererAnalyzer\RefererAnalyzer.shproj", "{3E8646B8-48A8-4B8B-BEC4-07EC6F250B00}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AccessAnalyzerSample", "AccessAnalyzerSample\AccessAnalyzerSample.csproj", "{1CED170F-4AA6-4A48-A808-FDA6617E9E4E}"
+EndProject
 Global
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		RefererAnalyzer\RefererAnalyzer.projitems*{3e5eee8d-e905-47af-be70-18924acf12ab}*SharedItemsImports = 4
+		RefererAnalyzer\RefererAnalyzer.projitems*{3e8646b8-48a8-4b8b-bec4-07ec6f250b00}*SharedItemsImports = 13
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
@@ -15,6 +23,10 @@ Global
 		{3E5EEE8D-E905-47AF-BE70-18924ACF12AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3E5EEE8D-E905-47AF-BE70-18924ACF12AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3E5EEE8D-E905-47AF-BE70-18924ACF12AB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1CED170F-4AA6-4A48-A808-FDA6617E9E4E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1CED170F-4AA6-4A48-A808-FDA6617E9E4E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1CED170F-4AA6-4A48-A808-FDA6617E9E4E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1CED170F-4AA6-4A48-A808-FDA6617E9E4E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
