@@ -39,6 +39,7 @@ namespace MifuminLib.AccessAnalyzer
             try
             {
                 Uri uri = new Uri(urlstring);
+                if (string.IsNullOrEmpty(uri.Query)) return false;
                 string domain = uri.Host;
                 if (domain.Contains("google.co")) return TryGetGoogleSearchPhrase(uri.Query, ref phrase);
                 if (domain.Contains("yahoo.co")) return TryGetYahooSearchPhrase(uri.Query, ref phrase);
