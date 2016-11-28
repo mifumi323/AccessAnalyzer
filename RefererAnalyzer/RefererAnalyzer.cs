@@ -95,7 +95,7 @@ namespace MifuminLib.AccessAnalyzer
         {
             string[] array = query.Substring(1).Split('&');
             phrase = "";
-            CodePage codepage = CodePage.EUC_JP;
+            CodePage codepage = CodePage.UTF8;
             foreach (string var in array)
             {
                 string[] s = var.Split('=');
@@ -151,7 +151,7 @@ namespace MifuminLib.AccessAnalyzer
         {
             string[] array = query.Substring(1).Split('&');
             phrase = "";
-            CodePage codepage = CodePage.EUC_JP;
+            CodePage codepage = CodePage.UTF8;
             foreach (string var in array)
             {
                 string[] s = var.Split('=');
@@ -175,7 +175,7 @@ namespace MifuminLib.AccessAnalyzer
         {
             string[] array = query.Substring(1).Split('&');
             phrase = "";
-            CodePage codepage = CodePage.EUC_JP;
+            CodePage codepage = CodePage.UTF8;
             foreach (string var in array)
             {
                 string[] s = var.Split('=');
@@ -184,12 +184,13 @@ namespace MifuminLib.AccessAnalyzer
                     string key = s[0].ToLower();
                     if (key == "mt")
                         phrase = s[1];
-                    if (key == "ie")
-                    {
-                        string value = s[1].ToLower();
-                        if (value == "utf-8") codepage = CodePage.UTF8;
-                        if (value == "sjis" || value == "shift_jis") codepage = CodePage.Shift_JIS;
-                    }
+                    // Input Encodingを無視してやがる
+                    //if (key == "ie")
+                    //{
+                    //    string value = s[1].ToLower();
+                    //    if (value == "utf-8") codepage = CodePage.UTF8;
+                    //    if (value == "sjis" || value == "shift_jis") codepage = CodePage.Shift_JIS;
+                    //}
                 }
             }
             if (phrase.Length > 0)
