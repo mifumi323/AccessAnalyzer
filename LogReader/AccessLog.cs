@@ -67,12 +67,8 @@ namespace MifuminLib.AccessAnalyzer
         {
             canceled = false;
             FileName = filename;
-            var array = new byte[GetBufferSize(option)];
-            int size, buffersize;
-            int day, month, year, hour, minute, second;
-            byte buf, old;
-            bool failed;
-            LinkedList<Log> list = new LinkedList<Log>();
+            var list = new LinkedList<Log>();
+            var buffer = new byte[GetBufferSize(option)];
             if (File.Exists(filename))
             {
                 BinaryReader binReader = new BinaryReader(
@@ -80,166 +76,12 @@ namespace MifuminLib.AccessAnalyzer
                     );
                 try
                 {
-                    Log l;
                     // LogFormat "%h %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\"" combined
                     // %s %s %s [%02d/%3s/%04d:%02d:%02d:%02d %1s%04d] \"%s %s %s\" %3d %d \"%s\" \"%s\"
                     while (true)
                     {
                         if (canceled) break;
-                        failed = false;
-                        l = new Log();
-                        l.parent = this;
-                        // ホスト/IP
-                        size = 0; buffersize = option.hostBuffer;
-                        while (true)
-                        {
-                            buf = binReader.ReadByte();
-                            if (buf == ' ') { l.Host = GetString(array, 0, size); break; }
-                            else if (buf == '\n' || buf == '\r') { failed = true; break; }
-                            if (size < buffersize) array[size++] = buf;
-                        }
-                        if (failed) continue;
-                        // リモートログ名
-                        size = 0; buffersize = option.remoteLogBuffer;
-                        while (true)
-                        {
-                            buf = binReader.ReadByte();
-                            if (buf == ' ') { l.RemoteLog = GetString(array, 0, size); break; }
-                            else if (buf == '\n' || buf == '\r') { failed = true; break; }
-                            if (size < buffersize) array[size++] = buf;
-                        }
-                        if (failed) continue;
-                        // ユーザー名
-                        size = 0; buffersize = option.userBuffer;
-                        while (true)
-                        {
-                            buf = binReader.ReadByte();
-                            if (buf == ' ') { l.User = GetString(array, 0, size); break; }
-                            else if (buf == '\n' || buf == '\r') { failed = true; break; }
-                            if (size < buffersize) array[size++] = buf;
-                        }
-                        if (failed) continue;
-                        // 時刻(手抜きでエラーチェックしてない)
-                        size = 0;
-                        binReader.ReadByte();   // '['
-                        day = (binReader.ReadByte() - '0') * 10 + (binReader.ReadByte() - '0'); // 日
-                        binReader.ReadByte();   // '/'
-                        // 月(Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec)
-                        array[0] = binReader.ReadByte();
-                        array[1] = binReader.ReadByte();
-                        array[2] = binReader.ReadByte();
-                        if (array[0] == 'D') { month = 12; }        // Dec
-                        else if (array[0] == 'F') { month = 2; }    // Feb
-                        else if (array[0] == 'N') { month = 11; }   // Nov
-                        else if (array[0] == 'O') { month = 10; }   // Oct
-                        else if (array[0] == 'S') { month = 9; }    // Sep
-                        else if (array[1] == 'p') { month = 4; }    // Apr
-                        else if (array[2] == 'g') { month = 8; }    // Aug
-                        else if (array[2] == 'l') { month = 7; }    // Jul
-                        else if (array[2] == 'r') { month = 3; }    // Mar
-                        else if (array[2] == 'y') { month = 5; }    // May
-                        else if (array[1] == 'a') { month = 1; }    // Jan
-                        else if (array[1] == 'u') { month = 6; }    // Jun
-                        else { month = 0; }
-                        binReader.ReadByte();   // '/'
-                        year = (binReader.ReadByte() - '0') * 1000 + (binReader.ReadByte() - '0') * 100
-                            + (binReader.ReadByte() - '0') * 10 + (binReader.ReadByte() - '0'); // 年
-                        binReader.ReadByte();   // ':'
-                        hour = (binReader.ReadByte() - '0') * 10 + (binReader.ReadByte() - '0'); // 時
-                        binReader.ReadByte();   // ':'
-                        minute = (binReader.ReadByte() - '0') * 10 + (binReader.ReadByte() - '0'); // 分
-                        binReader.ReadByte();   // ':'
-                        second = (binReader.ReadByte() - '0') * 10 + (binReader.ReadByte() - '0'); // 秒
-                        binReader.ReadBytes(9);   // ' +0900] "'
-                        try { l.lDate = (new DateTime(year, month, day, hour, minute, second)).Ticks; }
-                        catch (ArgumentOutOfRangeException) { l.lDate = 0; }
-                        // メソッド
-                        buf = binReader.ReadByte();
-                        if (buf == 'G') { l.eMethod = Log.EMethod.GET; }
-                        else if (buf == 'P')
-                        {
-                            buf = binReader.ReadByte();
-                            if (buf == 'O') { l.eMethod = Log.EMethod.POST; }
-                            else if (buf == 'U') { l.eMethod = Log.EMethod.PUT; }
-                            else { l.eMethod = Log.EMethod.UNKNOWN; }
-                        }
-                        else if (buf == 'H') { l.eMethod = Log.EMethod.HEAD; }
-                        else if (buf == 'C') { l.eMethod = Log.EMethod.CONNECT; }
-                        else if (buf == 'D') { l.eMethod = Log.EMethod.DELETE; }
-                        else if (buf == 'L') { l.eMethod = Log.EMethod.LINK; }
-                        else if (buf == 'O') { l.eMethod = Log.EMethod.OPTIONS; }
-                        else if (buf == 'T') { l.eMethod = Log.EMethod.TRACE; }
-                        else if (buf == 'U') { l.eMethod = Log.EMethod.UNLINK; }
-                        else { l.eMethod = Log.EMethod.UNKNOWN; }
-                        while (binReader.ReadByte() != ' ') { }
-                        // リクエスト先
-                        size = 0; buffersize = option.requestedBuffer;
-                        while (true)
-                        {
-                            buf = binReader.ReadByte();
-                            if (buf == ' ') { l.Requested = GetString(array, 0, size); break; }
-                            else if (buf == '\n' || buf == '\r') { failed = true; break; }
-                            if (size < buffersize) array[size++] = buf;
-                        }
-                        if (failed) continue;
-                        // HTTP(やっぱり手抜きでエラーチェックなし)
-                        binReader.ReadBytes(7);   // 'HTTP/1.'
-                        l.eHTTP = binReader.ReadByte() == '0' ? Log.EHTTP.HTTP10 : Log.EHTTP.HTTP11;
-                        binReader.ReadBytes(2);   // '" '
-                        // ステータスコード
-                        while (true)
-                        {
-                            buf = binReader.ReadByte();
-                            if ('0' <= buf && buf <= '9') { l.sStatus = (short)(l.sStatus * 10 + buf - '0'); }
-                            else if (buf == ' ') { break; }
-                            else if (buf == '\n' || buf == '\r') { failed = true; break; }
-                        }
-                        if (failed) continue;
-                        // 転送量
-                        while (true)
-                        {
-                            buf = binReader.ReadByte();
-                            if ('0' <= buf && buf <= '9') { l.iSendSize = l.iSendSize * 10 + buf - '0'; }
-                            else if (buf == ' ') { break; }
-                            else if (buf == '\n' || buf == '\r')
-                            {
-                                // ここでの失敗のみ特別な処理をする
-                                // (combinedとしては失敗だがcommonとしては成功)
-                                l.Referer = "";
-                                l.UserAgent = "";
-                                failed = true;
-                                break;
-                            }
-                        }
-                        if (failed) continue;
-                        // リファラ
-                        binReader.ReadByte();   // '"'
-                        size = 0; buffersize = option.refererBuffer;
-                        old = 0;
-                        while (true)
-                        {
-                            buf = binReader.ReadByte();
-                            if (buf == '"' && old != '\\') { l.Referer = GetString(array, 0, size); break; }
-                            else if (buf == '\n' || buf == '\r') { failed = true; break; }
-                            if (size < buffersize) array[size++] = buf;
-                            old = buf;
-                        }
-                        if (failed) continue;
-                        binReader.ReadByte();   // ' '
-                        // ユーザーエージェント
-                        binReader.ReadByte();   // '"'
-                        size = 0; buffersize = option.userAgentBuffer;
-                        old = 0;
-                        while (true)
-                        {
-                            buf = binReader.ReadByte();
-                            if (buf == '"' && old != '\\') { l.UserAgent = GetString(array, 0, size); break; }
-                            else if (buf == '\n' || buf == '\r') { failed = true; break; }
-                            if (size < buffersize) array[size++] = buf;
-                            old = buf;
-                        }
-                        if (failed) continue;
-                        binReader.ReadByte();   // '\n'
+                        var l = ReadLine(binReader, option, buffer);
                         if (option.filter.Match(l)) list.AddLast(l);
                     }
                 }
@@ -250,6 +92,172 @@ namespace MifuminLib.AccessAnalyzer
                 foreach (Log l in list) LogList[num++] = l;
             }
             return !canceled;
+        }
+
+        private Log ReadLine(BinaryReader binReader, LogReadOption option, byte[] buffer)
+        {
+            int size, buffersize;
+            int day, month, year, hour, minute, second;
+            byte buf, old;
+
+            var l = new Log();
+            l.parent = this;
+
+            // ホスト/IP
+            size = 0; buffersize = option.hostBuffer;
+            while (true)
+            {
+                buf = binReader.ReadByte();
+                if (buf == ' ') { l.Host = GetString(buffer, 0, size); break; }
+                else if (buf == '\n' || buf == '\r') { return null; }
+                if (size < buffersize) buffer[size++] = buf;
+            }
+
+            // リモートログ名
+            size = 0; buffersize = option.remoteLogBuffer;
+            while (true)
+            {
+                buf = binReader.ReadByte();
+                if (buf == ' ') { l.RemoteLog = GetString(buffer, 0, size); break; }
+                else if (buf == '\n' || buf == '\r') { return null; }
+                if (size < buffersize) buffer[size++] = buf;
+            }
+
+            // ユーザー名
+            size = 0; buffersize = option.userBuffer;
+            while (true)
+            {
+                buf = binReader.ReadByte();
+                if (buf == ' ') { l.User = GetString(buffer, 0, size); break; }
+                else if (buf == '\n' || buf == '\r') { return null; }
+                if (size < buffersize) buffer[size++] = buf;
+            }
+
+            // 時刻(手抜きでエラーチェックしてない)
+            size = 0;
+            binReader.ReadByte();   // '['
+            day = (binReader.ReadByte() - '0') * 10 + (binReader.ReadByte() - '0'); // 日
+            binReader.ReadByte();   // '/'
+
+            // 月(Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec)
+            buffer[0] = binReader.ReadByte();
+            buffer[1] = binReader.ReadByte();
+            buffer[2] = binReader.ReadByte();
+            if (buffer[0] == 'D') { month = 12; }        // Dec
+            else if (buffer[0] == 'F') { month = 2; }    // Feb
+            else if (buffer[0] == 'N') { month = 11; }   // Nov
+            else if (buffer[0] == 'O') { month = 10; }   // Oct
+            else if (buffer[0] == 'S') { month = 9; }    // Sep
+            else if (buffer[1] == 'p') { month = 4; }    // Apr
+            else if (buffer[2] == 'g') { month = 8; }    // Aug
+            else if (buffer[2] == 'l') { month = 7; }    // Jul
+            else if (buffer[2] == 'r') { month = 3; }    // Mar
+            else if (buffer[2] == 'y') { month = 5; }    // May
+            else if (buffer[1] == 'a') { month = 1; }    // Jan
+            else if (buffer[1] == 'u') { month = 6; }    // Jun
+            else { month = 0; }
+            binReader.ReadByte();   // '/'
+            year = (binReader.ReadByte() - '0') * 1000 + (binReader.ReadByte() - '0') * 100
+                + (binReader.ReadByte() - '0') * 10 + (binReader.ReadByte() - '0'); // 年
+            binReader.ReadByte();   // ':'
+            hour = (binReader.ReadByte() - '0') * 10 + (binReader.ReadByte() - '0'); // 時
+            binReader.ReadByte();   // ':'
+            minute = (binReader.ReadByte() - '0') * 10 + (binReader.ReadByte() - '0'); // 分
+            binReader.ReadByte();   // ':'
+            second = (binReader.ReadByte() - '0') * 10 + (binReader.ReadByte() - '0'); // 秒
+            binReader.ReadBytes(9);   // ' +0900] "'
+            try { l.lDate = (new DateTime(year, month, day, hour, minute, second)).Ticks; }
+            catch (ArgumentOutOfRangeException) { l.lDate = 0; }
+
+            // メソッド
+            buf = binReader.ReadByte();
+            if (buf == 'G') { l.eMethod = Log.EMethod.GET; }
+            else if (buf == 'P')
+            {
+                buf = binReader.ReadByte();
+                if (buf == 'O') { l.eMethod = Log.EMethod.POST; }
+                else if (buf == 'U') { l.eMethod = Log.EMethod.PUT; }
+                else { l.eMethod = Log.EMethod.UNKNOWN; }
+            }
+            else if (buf == 'H') { l.eMethod = Log.EMethod.HEAD; }
+            else if (buf == 'C') { l.eMethod = Log.EMethod.CONNECT; }
+            else if (buf == 'D') { l.eMethod = Log.EMethod.DELETE; }
+            else if (buf == 'L') { l.eMethod = Log.EMethod.LINK; }
+            else if (buf == 'O') { l.eMethod = Log.EMethod.OPTIONS; }
+            else if (buf == 'T') { l.eMethod = Log.EMethod.TRACE; }
+            else if (buf == 'U') { l.eMethod = Log.EMethod.UNLINK; }
+            else { l.eMethod = Log.EMethod.UNKNOWN; }
+            while (binReader.ReadByte() != ' ') { }
+
+            // リクエスト先
+            size = 0; buffersize = option.requestedBuffer;
+            while (true)
+            {
+                buf = binReader.ReadByte();
+                if (buf == ' ') { l.Requested = GetString(buffer, 0, size); break; }
+                else if (buf == '\n' || buf == '\r') { return null; }
+                if (size < buffersize) buffer[size++] = buf;
+            }
+
+            // HTTP(やっぱり手抜きでエラーチェックなし)
+            binReader.ReadBytes(7);   // 'HTTP/1.'
+            l.eHTTP = binReader.ReadByte() == '0' ? Log.EHTTP.HTTP10 : Log.EHTTP.HTTP11;
+            binReader.ReadBytes(2);   // '" '
+            
+            // ステータスコード
+            while (true)
+            {
+                buf = binReader.ReadByte();
+                if ('0' <= buf && buf <= '9') { l.sStatus = (short)(l.sStatus * 10 + buf - '0'); }
+                else if (buf == ' ') { break; }
+                else if (buf == '\n' || buf == '\r') { return null; }
+            }
+
+            // 転送量
+            while (true)
+            {
+                buf = binReader.ReadByte();
+                if ('0' <= buf && buf <= '9') { l.iSendSize = l.iSendSize * 10 + buf - '0'; }
+                else if (buf == ' ') { break; }
+                else if (buf == '\n' || buf == '\r')
+                {
+                    // ここでの失敗のみ特別な処理をする
+                    // (combinedとしては失敗だがcommonとしては成功)
+                    l.Referer = "";
+                    l.UserAgent = "";
+                    return l;
+                }
+            }
+
+            // リファラ
+            binReader.ReadByte();   // '"'
+            size = 0; buffersize = option.refererBuffer;
+            old = 0;
+            while (true)
+            {
+                buf = binReader.ReadByte();
+                if (buf == '"' && old != '\\') { l.Referer = GetString(buffer, 0, size); break; }
+                else if (buf == '\n' || buf == '\r') { return null; }
+                if (size < buffersize) buffer[size++] = buf;
+                old = buf;
+            }
+            binReader.ReadByte();   // ' '
+            
+            // ユーザーエージェント
+            binReader.ReadByte();   // '"'
+            size = 0; buffersize = option.userAgentBuffer;
+            old = 0;
+            while (true)
+            {
+                buf = binReader.ReadByte();
+                if (buf == '"' && old != '\\') { l.UserAgent = GetString(buffer, 0, size); break; }
+                else if (buf == '\n' || buf == '\r') { return null; }
+                if (size < buffersize) buffer[size++] = buf;
+                old = buf;
+            }
+            binReader.ReadByte();   // '\n'
+
+            return l;
         }
 
         private string GetString(byte[] array, int offset, int size)
