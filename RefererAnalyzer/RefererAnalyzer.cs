@@ -230,14 +230,14 @@ namespace MifuminLib.AccessAnalyzer
         {
             string[] array = query.Substring(1).Split('&');
             phrase = "";
-            CodePage codepage = CodePage.Shift_JIS;
+            CodePage codepage = CodePage.UTF8;
             foreach (string var in array)
             {
                 string[] s = var.Split('=');
                 if (s.Length >= 2)
                 {
                     string key = s[0].ToLower();
-                    if (key == "key")
+                    if (key == "key" || key == "mt")
                         phrase = s[1];
                 }
             }
@@ -308,6 +308,11 @@ namespace MifuminLib.AccessAnalyzer
         private static Encoding GetEncoding(CodePage codepage)
         {
             return Encoding.GetEncoding((int)codepage, EncoderFallback.ReplacementFallback, DecoderFallback.ReplacementFallback);
+        }
+
+        public string GetSearchQuery(string uristring)
+        {
+            return null;
         }
     }
 }
