@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AccessAnalyzerSample", "Acc
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "LogReader", "LogReader\LogReader.shproj", "{253B00F7-8866-4E8E-AEF2-912BAC236936}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AccessAnalyzerTests", "AccessAnalyzerTests\AccessAnalyzerTests.csproj", "{9999BA5D-D3AD-4788-B57B-981A9FCD94F7}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		LogReader\LogReader.projitems*{253b00f7-8866-4e8e-aef2-912bac236936}*SharedItemsImports = 13
@@ -31,6 +33,10 @@ Global
 		{1CED170F-4AA6-4A48-A808-FDA6617E9E4E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1CED170F-4AA6-4A48-A808-FDA6617E9E4E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1CED170F-4AA6-4A48-A808-FDA6617E9E4E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9999BA5D-D3AD-4788-B57B-981A9FCD94F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9999BA5D-D3AD-4788-B57B-981A9FCD94F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9999BA5D-D3AD-4788-B57B-981A9FCD94F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9999BA5D-D3AD-4788-B57B-981A9FCD94F7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
