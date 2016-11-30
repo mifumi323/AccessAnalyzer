@@ -29,6 +29,7 @@ namespace MifuminLib.AccessAnalyzer
 
         public virtual string GetSearchQuery(string uriString)
         {
+            if (!uriString.StartsWith("http://") && !uriString.StartsWith("https://")) return null;
             var uri = new Uri(uriString);
             switch (uri.Host)
             {
