@@ -66,6 +66,17 @@ namespace AccessAnalyzerTests
         }
 
         [TestMethod]
+        public void SearchYahooComSearchQuery()
+        {
+            SearchQueryTest(
+                @"http://search.yahoo.com/search?p=%e3%81%97%e3%82%87%e3%81%8f%e3%81%b1%e3%82%93%e3%81%be%e3%82%93+%e5%bc%b1%e3%82%8b&fr=onesearchnew",
+                @"しょくぱんまん 弱る");
+            SearchQueryTest(
+                @"http://search.yahoo.com/search?p=%e3%83%95%e3%83%a9%e3%83%b3%e3%82%b1%e3%83%b3%e3%83%ad%e3%83%9c+%e3%83%91%e3%83%91&fr=onesearchnew",
+                @"フランケンロボ パパ");
+        }
+
+        [TestMethod]
         public void SearchYahooCoJpSearchQuery()
         {
             SearchQueryTest(
@@ -96,6 +107,17 @@ namespace AccessAnalyzerTests
             SearchQueryTest(
                 @"https://hk.images.search.yahoo.com/search/images;_ylt=A8tUwYZj8SNYlicA1eSzygt.;_ylu=X3oDMTE0bHJ0ZXU0BGNvbG8DdHcxBHBvcwMxBHZ0aWQDQjI1NDhfMQRzZWMDcGl2cw--?p=%e6%9d%9f%e7%b8%9b&fr=fp-handwrite-405-hk&fr2=piv-web",
                 @"束縛");
+        }
+
+        [TestMethod]
+        public void RealtimeSearchYahooCoJpSearchQuery()
+        {
+            SearchQueryTest(
+                @"http://realtime.search.yahoo.co.jp/search?p=%e3%81%8b%e3%81%9c%e3%81%93%e3%82%93%e3%81%93%e3%82%93&ei=UTF-8&fr=top_ga1_sa",
+                @"かぜこんこん");
+            SearchQueryTest(
+                @"http://realtime.search.yahoo.co.jp/search?p=%e5%a4%a7%e5%8f%8b%e9%be%8d%e4%b8%89%e9%83%8e&search.x=1&tid=top_ga1_sa&ei=UTF-8&aq=1&oq=%e5%a4%a7%e5%8f%8b%e3%82%8a%e3%82%85%e3%81%86&fr=top_ga1_sa",
+                @"大友龍三郎");
         }
 
         [TestMethod]
@@ -151,6 +173,17 @@ namespace AccessAnalyzerTests
             SearchQueryTest(
                 @"http://search.goo.ne.jp/web.jsp?IE=UTF-8&OE=UTF-8&from=ocn_Default&PT=ocn_Default&sbd=ocn001&MT=%e7%88%86%e3%83%9c%e3%83%b3%e3%83%90%e3%83%bc%e3%83%9e%e3%83%b364",
                 @"爆ボンバーマン64");
+        }
+
+        [TestMethod]
+        public void SearchAuoneJpSearchQuery()
+        {
+            SearchQueryTest(
+                @"http://search.auone.jp/?q=%e3%82%a2%e3%83%b3%e3%83%91%e3%83%b3%e3%83%9e%e3%83%b3+%e3%82%a2%e3%83%b3%e3%83%91%e3%83%b3%e3%83%81+%e7%94%bb%e5%83%8f&sr=0001&ie=UTF-8&lr=",
+                @"アンパンマン アンパンチ 画像");
+            SearchQueryTest(
+                @"http://search.auone.jp/?q=%e3%83%89%e3%82%ad%e3%83%b3%e3%81%a1%e3%82%83%e3%82%93&client=kddi-auone-suggest&sr=0101&ie=SJIS",
+                @"ドキンちゃん");
         }
 
         [TestMethod]
@@ -327,6 +360,12 @@ namespace AccessAnalyzerTests
             SearchQueryTest(
                 @"http://search.azby.fmworld.net/imagesearch/search?select=2&cflg=%e6%a4%9c%e7%b4%a2&q=%e3%82%a2%e3%83%b3%e3%83%91%e3%83%b3%e3%83%9e%e3%83%b3%e3%81%a8%e3%82%b5%e3%83%b3%e3%82%bf%e3%81%95%e3%82%93%e3%81%b8%e3%81%ae%e6%89%8b%e7%b4%99&ss=up",
                 @"アンパンマンとサンタさんへの手紙");
+            SearchQueryTest(
+                @"http://search.azby.fmworld.net/websearch/search?select=41&ss=up&cflg=%e6%a4%9c%e7%b4%a2&chartype=&Text=%e3%82%a2%e3%83%b3%e3%83%91%e3%83%b3%e3%83%9e%e3%83%b3%e3%81%a8%e3%83%9d%e3%83%83%e3%83%9d%e3%81%a1%e3%82%83%e3%82%93",
+                @"アンパンマンとポッポちゃん");
+            SearchQueryTest(
+                @"http://search.azby.fmworld.net/websearch/search?select=41&ss=up&cflg=%e6%a4%9c%e7%b4%a2&chartype=&Text=%e3%82%ab%e3%83%bc%e3%83%93%e3%82%a3%e3%81%ae%e3%83%9c%e3%82%b9%e3%81%9f%e3%81%a1",
+                @"カービィのボスたち");
         }
 
         [TestMethod]
@@ -426,6 +465,72 @@ namespace AccessAnalyzerTests
             SearchQueryTest(
                 @"https://search.searchnewsplus.com/web?q=%e3%81%93%e3%81%8d%e3%82%93%e3%81%a1%e3%82%83%e3%82%93&secret=false&ref=url_input&theme=sky",
                 @"こきんちゃん");
+        }
+
+        [TestMethod]
+        public void JpHao123ComSearchQuery()
+        {
+            SearchQueryTest(
+                @"http://jp.hao123.com/yahoo-search-demo-sample?query=%e3%82%a2%e3%83%b3%e3%83%91%e3%83%b3%e3%83%81%e7%94%bb%e5%83%8f&pn=1",
+                @"アンパンチ画像");
+            SearchQueryTest(
+                @"http://jp.hao123.com/yahoo-search-demo-sample?query=%e3%82%a4%e3%83%a9%e3%82%b9%e3%83%88%e3%83%90%e3%82%a4%e3%81%8d%e3%82%93%e3%81%be%e3%82%93%e3%83%90%e3%82%a4%e3%83%90%e3%82%a4%e3%82%ad%e3%83%bc%e3%83%b3&pn=1",
+                @"イラストバイきんまんバイバイキーン");
+        }
+
+        [TestMethod]
+        public void GwsCybozuNetSearchQuery()
+        {
+            SearchQueryTest(
+                @"http://gws.cybozu.net/?Keywords=%e3%83%8a%e3%83%b3%e3%82%ab%e3%83%98%e3%83%b3%e3%83%80%e3%83%bc",
+                @"ナンカヘンダー");
+            SearchQueryTest(
+                @"http://gws.cybozu.net/?Keywords=%e3%83%8f%e3%83%ad%e3%82%a6%e3%82%a3%e3%83%b3%e3%83%9e%e3%83%b3",
+                @"ハロウィンマン");
+        }
+
+        [TestMethod]
+        public void HomeKingsoftJpSearchQuery()
+        {
+            SearchQueryTest(
+                @"http://home.kingsoft.jp/type/web?area=web-searchbox&page=1&keyword=%e3%82%a2%e3%82%af%e3%82%a2%e3%81%a1%e3%82%83%e3%82%93&area=web-searchbox&page=1",
+                @"アクアちゃん");
+            SearchQueryTest(
+                @"http://home.kingsoft.jp/type/web?area=web-searchbox&page=1&keyword=%e3%82%b9%e3%83%bc%e3%83%91%e3%83%bc%e3%83%90%e3%82%a4%e3%82%ad%e3%83%b3%e3%81%9c%e3%82%93%e3%81%be%e3%81%84%e3%83%ad%e3%83%9c&area=web-searchbox&page=1",
+                @"スーパーバイキンぜんまいロボ");
+        }
+
+        [TestMethod]
+        public void SearchDolphinBrowserJpSearchQuery()
+        {
+            SearchQueryTest(
+                @"http://search.dolphin-browser.jp/?q=%e3%82%af%e3%83%aa%e3%82%a2%e3%83%b3%e3%83%91%e3%83%b3%e3%83%9e%e3%83%b3 %e5%8b%95%e7%94%bb",
+                @"クリアンパンマン 動画");
+            SearchQueryTest(
+                @"http://search.dolphin-browser.jp/?q=%e3%83%89%e3%83%a9%e3%82%b4%e3%83%b3%e3%82%af%e3%82%a8%e3%82%b9%e3%83%8810 %e3%83%89%e3%83%af%e3%83%bc%e3%83%95 %e7%99%bb%e5%a0%b4%e3%82%ad%e3%83%a3%e3%83%a9%e3%82%af%e3%82%bf%e3%83%bc",
+                @"ドラゴンクエスト10 ドワーフ 登場キャラクター");
+        }
+
+        [TestMethod]
+        public void SearchFoooooComSearchQuery()
+        {
+            SearchQueryTest(
+                @"http://search.fooooo.com/web/?q=%e3%82%a2%e3%83%b3%e3%83%91%e3%83%b3%e3%83%9e%e3%83%b3+%e3%81%82%e3%81%8f%e3%81%b3%e3%81%a9%e3%82%8a+%e3%82%ad%e3%83%a3%e3%83%a9%e3%82%af%e3%82%bf%e3%83%bc+%e3%82%a4%e3%83%a9%e3%82%b9%e3%83%88&fr=_default&span=&language=",
+                @"アンパンマン あくびどり キャラクター イラスト");
+            SearchQueryTest(
+                @"http://search.fooooo.com/web/?q=%e3%82%a2%e3%83%b3%e3%83%91%e3%83%b3%e3%83%9e%e3%83%b3+%e3%82%ad%e3%83%a3%e3%83%a9%e3%82%af%e3%82%bf%e3%83%bc+%e3%83%94%e3%83%bc%e3%83%9e%e3%83%b3%e3%83%88%e3%83%aa%e3%82%aa+%e3%83%94%e3%83%bc%e3%83%9e%e3%83%b3&fr=_default&span=&language=",
+                @"アンパンマン キャラクター ピーマントリオ ピーマン");
+        }
+
+        [TestMethod]
+        public void SearchFreespotComSearchQuery()
+        {
+            SearchQueryTest(
+                @"http://search.freespot.com/search?q=%e3%81%8a%e3%81%97%e3%82%93%e3%81%93%e3%81%a1%e3%82%83%e3%82%93&type=web&ref=",
+                @"おしんこちゃん");
+            SearchQueryTest(
+                @"http://search.freespot.com/search?q=%e3%81%93%e3%81%8a%e3%82%8a%e3%81%8a%e3%81%ab+%e3%82%a2%e3%83%b3%e3%83%91%e3%83%b3%e3%83%9e%e3%83%b3&type=web&ref=",
+                @"こおりおに アンパンマン");
         }
     }
 }

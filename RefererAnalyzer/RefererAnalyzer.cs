@@ -38,6 +38,7 @@ namespace MifuminLib.AccessAnalyzer
                 case "www.google.com.br":
                 case "images.google.co.jp":
                 case "cgi.search.biglobe.ne.jp":
+                case "search.auone.jp":
                 case "sp-web.search.auone.jp":
                 case "www.bing.com":
                 case "cn.bing.com":
@@ -46,7 +47,6 @@ namespace MifuminLib.AccessAnalyzer
                 case "jwsearch.jword.jp":
                 case "mobss.jword.jp":
                 case "v-buster.jword.jp":
-                case "search.azby.fmworld.net":
                 case "search.fenrir-inc.com":
                 case "search.jiqoo.jp":
                 case "websearch.excite.co.jp":
@@ -54,10 +54,15 @@ namespace MifuminLib.AccessAnalyzer
                 case "nortonsafe.search.ask.com":
                 case "search.kinza.jp":
                 case "search.searchnewsplus.com":
+                case "search.dolphin-browser.jp":
+                case "search.fooooo.com":
+                case "search.freespot.com":
                     return GetSearchSimpleQuery(uri, "q");
+                case "search.yahoo.com":
                 case "search.yahoo.co.jp":
                 case "image.search.yahoo.co.jp":
                 case "hk.images.search.yahoo.com":
+                case "realtime.search.yahoo.co.jp":
                 case "cache.yahoofs.jp":
                     return GetSearchSimpleQuery(uri, "p");
                 case "search.smt.docomo.ne.jp":
@@ -68,6 +73,7 @@ namespace MifuminLib.AccessAnalyzer
                     return GetSearchSimpleQuery(uri, "qt");
                 case "wakwakpc.starthome.jp":
                 case "pex.jp":
+                case "home.kingsoft.jp":
                     return GetSearchSimpleQuery(uri, "keyword");
                 case "int.search.tb.ask.com":
                     return GetSearchSimpleQuery(uri, "searchfor");
@@ -76,8 +82,12 @@ namespace MifuminLib.AccessAnalyzer
                 case "ecnavi.jp":
                 case "search.kawaii.aswidget.com":
                 case "search.plushome.aswidget.com":
+                case "gws.cybozu.net":
                     return GetSearchSimpleQuery(uri, "Keywords");
+                case "jp.hao123.com":
+                    return GetSearchSimpleQuery(uri, "query");
                 case "search.nifty.com":
+                case "search.azby.fmworld.net":
                     return GetSearchSimpleQuery(uri, "Text") ?? GetSearchSimpleQuery(uri, "q");
                 default:
                     break;
