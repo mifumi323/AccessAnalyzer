@@ -37,6 +37,7 @@ namespace MifuminLib.AccessAnalyzer
                 case "www.google.co.jp":
                 case "www.google.com.br":
                 case "www.google.it":
+                case "www.google.es":
                 case "images.google.co.jp":
                 case "cgi.search.biglobe.ne.jp":
                 case "search.auone.jp":
@@ -90,6 +91,8 @@ namespace MifuminLib.AccessAnalyzer
                 case "search.nifty.com":
                 case "search.azby.fmworld.net":
                     return GetSearchSimpleQuery(uri, "Text") ?? GetSearchSimpleQuery(uri, "q");
+                case "imagesearch.excite.co.jp":
+                    return GetSearchSimpleQuery(uri, "q") ?? GetSearchSimpleQuery(uri, "search");
                 default:
                     break;
             }
