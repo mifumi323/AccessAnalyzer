@@ -532,5 +532,16 @@ namespace AccessAnalyzerTests
                 @"http://search.freespot.com/search?q=%e3%81%93%e3%81%8a%e3%82%8a%e3%81%8a%e3%81%ab+%e3%82%a2%e3%83%b3%e3%83%91%e3%83%b3%e3%83%9e%e3%83%b3&type=web&ref=",
                 @"こおりおに アンパンマン");
         }
+
+        [TestMethod]
+        public void DecomailerAwalkerJpSearchQuery()
+        {
+            SearchQueryTest(
+                @"http://decomailer.awalker.jp/websearch.php?q=%e3%82%a2%e3%83%b3%e3%83%91%e3%83%b3%e3%83%9e%e3%83%b3%e3%82%ad%e3%83%a3%e3%83%a9",
+                @"アンパンマンキャラ");
+            SearchQueryTest(
+                @"http://decomailer.awalker.jp/websearch.php?q=%e3%82%af%e3%83%aa%e3%83%bc%e3%83%a0%e3%82%b7%e3%83%81%e3%83%a5%e3%83%bc%e3%81%8a%e3%81%b0%e3%81%95%e3%82%93+%e3%82%a2%e3%83%b3%e3%83%91%e3%83%b3%e3%83%9e%e3%83%b3",
+                @"クリームシチューおばさん アンパンマン");
+        }
     }
 }
