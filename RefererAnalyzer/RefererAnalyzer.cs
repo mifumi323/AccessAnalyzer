@@ -35,6 +35,7 @@ namespace MifuminLib.AccessAnalyzer
             {
                 case "www.google.com":
                 case "www.google.co.jp":
+                case "www.google.co.kr":
                 case "www.google.com.br":
                 case "www.google.it":
                 case "www.google.es":
@@ -60,10 +61,12 @@ namespace MifuminLib.AccessAnalyzer
                 case "search.fooooo.com":
                 case "search.freespot.com":
                 case "decomailer.awalker.jp":
+                case "search.myjcom.jp":
                     return GetSearchSimpleQuery(uri, "q");
                 case "search.yahoo.com":
                 case "search.yahoo.co.jp":
                 case "image.search.yahoo.co.jp":
+                case "images.search.yahoo.com":
                 case "hk.images.search.yahoo.com":
                 case "realtime.search.yahoo.co.jp":
                 case "cache.yahoofs.jp":
