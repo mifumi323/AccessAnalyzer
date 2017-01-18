@@ -90,6 +90,7 @@ namespace MifuminLib.AccessAnalyzer
                 case "search.plushome.aswidget.com":
                 case "gws.cybozu.net":
                     return GetSearchSimpleQuery(uri, "Keywords");
+                case "www.so-net.ne.jp":
                 case "jp.hao123.com":
                     return GetSearchSimpleQuery(uri, "query");
                 case "search.nifty.com":
