@@ -543,5 +543,16 @@ namespace AccessAnalyzerTests
                 @"http://decomailer.awalker.jp/websearch.php?q=%e3%82%af%e3%83%aa%e3%83%bc%e3%83%a0%e3%82%b7%e3%83%81%e3%83%a5%e3%83%bc%e3%81%8a%e3%81%b0%e3%81%95%e3%82%93+%e3%82%a2%e3%83%b3%e3%83%91%e3%83%b3%e3%83%9e%e3%83%b3",
                 @"クリームシチューおばさん アンパンマン");
         }
+
+        [TestMethod]
+        public void SearchCravingComSearchQuery()
+        {
+            SearchQueryTest(
+                @"http://search.crav-ing.com/search?q=%e3%82%a2%e3%83%b3%e3%83%91%e3%83%b3%e3%83%9e%e3%83%b3+%e3%83%9d%e3%83%83%e3%83%9d%e3%83%81%e3%83%a3%e3%83%b3&mt=youtube&ienc=UTF-8&utm_source=ce1.x&utm_campaign=ce&utm_medium=explorer",
+                @"アンパンマン ポッポチャン");
+            SearchQueryTest(
+                @"http://search.crav-ing.com/search?utm_source=ce1.x&utm_campaign=ce&ienc=UTF-8&utm_medium=searchbox&q=%e3%81%b0%e3%81%84%e3%81%8d%e3%82%93%e3%81%be%e3%82%93%e3%81%a8%e3%83%84%e3%83%9c%e3%83%9f%e3%81%a1%e3%82%83%e3%82%93",
+                @"ばいきんまんとツボミちゃん");
+        }
     }
 }
