@@ -45,6 +45,7 @@ namespace MifuminLib.AccessAnalyzer
                 case "sp-web.search.auone.jp":
                 case "www.bing.com":
                 case "cn.bing.com":
+                case "www.msn.com":
                 case "search.kensakuplus.com":
                 case "eonet.jp":
                 case "jwsearch.jword.jp":
