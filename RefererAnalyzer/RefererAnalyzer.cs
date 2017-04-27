@@ -64,6 +64,7 @@ namespace MifuminLib.AccessAnalyzer
                 case "decomailer.awalker.jp":
                 case "search.myjcom.jp":
                 case "search.crav-ing.com":
+                case "images.search.biglobe.ne.jp":
                     return GetSearchSimpleQuery(uri, "q");
                 case "search.yahoo.com":
                 case "search.yahoo.co.jp":

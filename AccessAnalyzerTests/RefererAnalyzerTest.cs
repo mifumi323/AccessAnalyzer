@@ -554,5 +554,16 @@ namespace AccessAnalyzerTests
                 @"http://search.crav-ing.com/search?utm_source=ce1.x&utm_campaign=ce&ienc=UTF-8&utm_medium=searchbox&q=%e3%81%b0%e3%81%84%e3%81%8d%e3%82%93%e3%81%be%e3%82%93%e3%81%a8%e3%83%84%e3%83%9c%e3%83%9f%e3%81%a1%e3%82%83%e3%82%93",
                 @"ばいきんまんとツボミちゃん");
         }
+
+        [TestMethod]
+        public void ImagesSearcBiglobeNeJpSearchQuery()
+        {
+            SearchQueryTest(
+                @"http://images.search.biglobe.ne.jp/cgi-bin/search?start=320&q=%e3%83%8f%e3%83%b3%e3%83%90%e3%83%bc%e3%82%ac%e3%83%bc%e3%82%ad%e3%83%83%e3%83%89",
+                @"ハンバーガーキッド");
+            SearchQueryTest(
+                @"http://images.search.biglobe.ne.jp/cgi-bin/search?q=%e3%82%a2%e3%83%b3%e3%83%91%e3%83%b3%e3%83%9e%e3%83%b3%e3%82%a2%e3%83%ad%e3%83%9e%e3%81%a1%e3%82%83%e3%82%93&searchBtn=%e6%a4%9c%e7%b4%a2&ie=utf8&o_sf=1&o_cr=all&o_si=&o_ft=all&o_sz=all",
+                @"アンパンマンアロマちゃん");
+        }
     }
 }
