@@ -68,6 +68,7 @@ namespace MifuminLib.AccessAnalyzer
                     return GetSearchSimpleQuery(uri, "q");
                 case "search.yahoo.com":
                 case "search.yahoo.co.jp":
+                case "th.search.yahoo.com":
                 case "image.search.yahoo.co.jp":
                 case "images.search.yahoo.com":
                 case "hk.images.search.yahoo.com":

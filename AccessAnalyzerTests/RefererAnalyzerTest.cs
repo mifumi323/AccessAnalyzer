@@ -565,5 +565,16 @@ namespace AccessAnalyzerTests
                 @"http://images.search.biglobe.ne.jp/cgi-bin/search?q=%e3%82%a2%e3%83%b3%e3%83%91%e3%83%b3%e3%83%9e%e3%83%b3%e3%82%a2%e3%83%ad%e3%83%9e%e3%81%a1%e3%82%83%e3%82%93&searchBtn=%e6%a4%9c%e7%b4%a2&ie=utf8&o_sf=1&o_cr=all&o_si=&o_ft=all&o_sz=all",
                 @"アンパンマンアロマちゃん");
         }
+
+        [TestMethod]
+        public void ThSearchYahooComSearchQuery()
+        {
+            SearchQueryTest(
+                @"http://th.search.yahoo.com/search?p=%e3%81%a6%e3%82%93%e3%81%a9%e3%82%93%e3%81%be%e3%82%93&fr=ipad&pcarrier=NTT+DOCOMO&pmcc=440&pmnc=10",
+                @"てんどんまん");
+            SearchQueryTest(
+                @"http://th.search.yahoo.com/search?p=%e9%95%b7%e3%83%8d%e3%82%ae%e3%83%9e%e3%83%b3&fr=ipad&pcarrier=NTT+DOCOMO&pmcc=440&pmnc=10",
+                @"長ネギマン");
+        }
     }
 }
