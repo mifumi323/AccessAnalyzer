@@ -23,8 +23,15 @@ namespace MifuminLib.AccessAnalyzer
         /// <returns>指定したURLから検索フレーズが抽出できたかどうか</returns>
         public static bool TryGetSearchPhrase(string urlstring, ref string phrase)
         {
-            phrase = GetSearchPhrase(urlstring);
-            return phrase != null;
+            try
+            {
+                phrase = GetSearchPhrase(urlstring);
+                return phrase != null;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
 
         public virtual string GetSearchQuery(string uriString)
