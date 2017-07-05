@@ -17,6 +17,7 @@ namespace MifuminLib.AccessAnalyzer
 
         /// <summary>
         /// 検索サイトの検索結果のページのURLから検索に使われた言葉を抽出します。
+        /// 空白文字を抽出したときは、抽出成功として、trueと空文字を返します。
         /// </summary>
         /// <param name="urlstring">対象となる検索ページのURL</param>
         /// <param name="phrase">抽出した検索フレーズを格納する変数</param>
