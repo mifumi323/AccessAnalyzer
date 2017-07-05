@@ -904,16 +904,26 @@ namespace MifuminLib.AccessAnalyzer
     /// <summary>検索に使われた語句に対するフィルタ</summary>
     public class LogFilterSearchPhrase : LogFilterString
     {
+        RefererAnalyzer refererAnalyzer = new RefererAnalyzer();
+
         public LogFilterSearchPhrase() { }
         public LogFilterSearchPhrase(string matches, bool ignoreCase, MatchRule matchRule) : base(matches, ignoreCase, matchRule) { }
         public LogFilterSearchPhrase(long min, long max) : base(min, max) { }
 
         public override bool Match(Log l)
         {
-            string phrase = "";
-            if (RefererAnalyzer.TryGetSearchPhrase(l.strReferer, ref phrase))
+            if (l.strReferer == null || l.strReferer.Length < 8) return false;
+            try
             {
-                return Match(phrase);
+                var phrase = refererAnalyzer.GetSearchQuery(l.strReferer);
+                if (!string.IsNullOrWhiteSpace(phrase))
+                {
+                    return Match(phrase);
+                }
+            }
+            catch (Exception)
+            {
+                // エラーは無視しちゃおうねー
             }
             return false;
         }
