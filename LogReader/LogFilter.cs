@@ -155,6 +155,28 @@ namespace MifuminLib.AccessAnalyzer
             }
         }
 
+        /// <summary>フィルタのXML文字列表現を返す。</summary>
+        /// <returns>XML</returns>
+        public string ToXmlString()
+        {
+            var output = new StringBuilder(1024);
+            using (var writer = XmlWriter.Create(output))
+            {
+                Save(writer);
+            }
+            return output.ToString();
+        }
+        /// <summary>XML文字列からフィルタを作って返す。</summary>
+        /// <param name="xml">XML</param>
+        /// <returns>フィルタ</returns>
+        public static LogFilter FromXmlString(string xml)
+        {
+            using (var reader = XmlReader.Create(new StringReader(xml)))
+            {
+                return Load(reader);
+            }
+        }
+
         /// <summary>このフィルタにマッチするログを返す。</summary>
         /// <param name="logs">不純物だらけのログ</param>
         /// <returns>フィルタに通してきれいになったログ</returns>
