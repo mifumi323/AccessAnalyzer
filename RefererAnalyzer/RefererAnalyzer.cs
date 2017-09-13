@@ -48,6 +48,7 @@ namespace MifuminLib.AccessAnalyzer
                 case "www.google.it":
                 case "www.google.es":
                 case "images.google.co.jp":
+                case "encrypted.google.com":
                 case "cgi.search.biglobe.ne.jp":
                 case "search.auone.jp":
                 case "sp-web.search.auone.jp":
