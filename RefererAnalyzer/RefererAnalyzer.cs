@@ -95,6 +95,7 @@ namespace MifuminLib.AccessAnalyzer
                 case "home.kingsoft.jp":
                     return GetSearchSimpleQuery(uri, "keyword");
                 case "int.search.tb.ask.com":
+                case "int.search.myway.com":
                     return GetSearchSimpleQuery(uri, "searchfor");
                 case "docomo.ne.jp":
                     return GetSearchSimpleQuery(uri, "key");
