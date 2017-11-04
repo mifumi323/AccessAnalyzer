@@ -93,6 +93,7 @@ namespace MifuminLib.AccessAnalyzer
                 case "wakwakpc.starthome.jp":
                 case "pex.jp":
                 case "home.kingsoft.jp":
+                case "www.unisearch.jp":
                     return GetSearchSimpleQuery(uri, "keyword");
                 case "int.search.tb.ask.com":
                 case "int.search.myway.com":
