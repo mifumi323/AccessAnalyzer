@@ -3,5 +3,6 @@ bin/
 packages/
 publish/
 obj/
+TestResults/
 *.user
 *.suo
