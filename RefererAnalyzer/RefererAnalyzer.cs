@@ -43,13 +43,18 @@ namespace MifuminLib.AccessAnalyzer
             {
                 case "cgi.search.biglobe.ne.jp":
                 case "cn.bing.com":
+                case "cse.google.co.jp":
                 case "decomailer.awalker.jp":
                 case "encrypted.google.com":
                 case "eonet.jp":
+                case "gensun.org":
                 case "images.google.co.jp":
                 case "images.search.biglobe.ne.jp":
+                case "insertmedia.bing.office.net":
+                case "isearch.babylon.com":
                 case "jwsearch.jword.jp":
                 case "mobss.jword.jp":
+                case "netlavis.azione.jp":
                 case "nortonsafe.search.ask.com":
                 case "search.auone.jp":
                 case "search.crav-ing.com":
@@ -60,6 +65,7 @@ namespace MifuminLib.AccessAnalyzer
                 case "search.jiqoo.jp":
                 case "search.kensakuplus.com":
                 case "search.kinza.jp":
+                case "search.livedoor.com":
                 case "search.myjcom.jp":
                 case "search.searchnewsplus.com":
                 case "sp-web.search.auone.jp":
@@ -74,8 +80,10 @@ namespace MifuminLib.AccessAnalyzer
                 case "www.google.it":
                 case "www.msn.com":
                 case "www.search.ask.com":
+                case "www.so.com":
                     return GetSearchSimpleQuery(uri, "q");
                 case "cache.yahoofs.jp":
+                case "cgi2.nintendo.co.jp":
                 case "hk.images.search.yahoo.com":
                 case "image.search.yahoo.co.jp":
                 case "images.search.yahoo.com":
@@ -99,11 +107,13 @@ namespace MifuminLib.AccessAnalyzer
                 case "int.search.tb.ask.com":
                     return GetSearchSimpleQuery(uri, "searchfor");
                 case "docomo.ne.jp":
+                case "i.fileseek.jp":
                     return GetSearchSimpleQuery(uri, "key");
                 case "ecnavi.jp":
                 case "gws.cybozu.net":
                 case "search.kawaii.aswidget.com":
                 case "search.plushome.aswidget.com":
+                case "www.benri.com":
                     return GetSearchSimpleQuery(uri, "Keywords");
                 case "jp.hao123.com":
                 case "www.so-net.ne.jp":
