@@ -78,6 +78,7 @@ namespace MifuminLib.AccessAnalyzer
                 case "www.google.com.br":
                 case "www.google.es":
                 case "www.google.it":
+                case "www.info.com":
                 case "www.msn.com":
                 case "www.search.ask.com":
                 case "www.so.com":
