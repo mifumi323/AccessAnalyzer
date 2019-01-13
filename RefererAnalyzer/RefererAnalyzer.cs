@@ -82,6 +82,7 @@ namespace MifuminLib.AccessAnalyzer
                 case "www.msn.com":
                 case "www.search.ask.com":
                 case "www.so.com":
+                case "www.searchmobileonline.com":
                     return GetSearchSimpleQuery(uri, "q");
                 case "cache.yahoofs.jp":
                 case "cgi2.nintendo.co.jp":
