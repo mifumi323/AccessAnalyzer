@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Web;
 
 namespace MifuminLib.AccessAnalyzer
@@ -72,7 +73,6 @@ namespace MifuminLib.AccessAnalyzer
                 case "v-buster.jword.jp":
                 case "websearch.excite.co.jp":
                 case "www.bing.com":
-                case "www.google.co.jp":
                 case "www.google.co.kr":
                 case "www.google.com":
                 case "www.google.com.br":
@@ -84,6 +84,8 @@ namespace MifuminLib.AccessAnalyzer
                 case "www.so.com":
                 case "www.searchmobileonline.com":
                     return GetSearchSimpleQuery(uri, "q");
+                case "www.google.co.jp":
+                    return GetSearchSimpleQuery(uri, "q") ?? GetSearchSimpleQuery(uri, "as_q");
                 case "cache.yahoofs.jp":
                 case "cgi2.nintendo.co.jp":
                 case "hk.images.search.yahoo.com":
@@ -125,6 +127,8 @@ namespace MifuminLib.AccessAnalyzer
                     return GetSearchSimpleQuery(uri, "Text") ?? GetSearchSimpleQuery(uri, "q");
                 case "imagesearch.excite.co.jp":
                     return GetSearchSimpleQuery(uri, "q") ?? GetSearchSimpleQuery(uri, "search");
+                case "japaneseclass.jp":
+                    return HttpUtility.HtmlDecode(uriString.Split('/').Last());
                 default:
                     break;
             }
