@@ -57,6 +57,7 @@ namespace MifuminLib.AccessAnalyzer
                 case "mobss.jword.jp":
                 case "netlavis.azione.jp":
                 case "nortonsafe.search.ask.com":
+                case "s.cube-soft.jp":
                 case "search.auone.jp":
                 case "search.crav-ing.com":
                 case "search.dolphin-browser.jp":
