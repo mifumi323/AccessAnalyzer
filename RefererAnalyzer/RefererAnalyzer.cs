@@ -128,7 +128,7 @@ namespace MifuminLib.AccessAnalyzer
                 case "imagesearch.excite.co.jp":
                     return GetSearchSimpleQuery(uri, "q") ?? GetSearchSimpleQuery(uri, "search");
                 case "japaneseclass.jp":
-                    return HttpUtility.HtmlDecode(uriString.Split('/').Last());
+                    return HttpUtility.UrlDecode(uriString.Split('/').Last());
                 default:
                     break;
             }
