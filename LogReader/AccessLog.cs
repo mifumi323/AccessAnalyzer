@@ -1,14 +1,14 @@
-using System;
-using System.Windows.Forms;
+ï»¿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using System.Windows.Forms;
 
 namespace MifuminLib.AccessAnalyzer
 {
     /// <summary>
-    /// ƒƒO‚Ìˆês‚É‘Š“–‚·‚é
-    /// ƒIƒŠƒWƒiƒ‹‚ÌƒeƒLƒXƒg‚Í•Û‚³‚ê‚È‚¢‚Ì‚Å’ˆÓ
+    /// ãƒ­ã‚°ã®ä¸€è¡Œã«ç›¸å½“ã™ã‚‹
+    /// ã‚ªãƒªã‚¸ãƒŠãƒ«ã®ãƒ†ã‚­ã‚¹ãƒˆã¯ä¿æŒã•ã‚Œãªã„ã®ã§æ³¨æ„
     /// </summary>
     public class Log
     {
@@ -17,52 +17,52 @@ namespace MifuminLib.AccessAnalyzer
 
         public LogFile parent;
 
-        /// <summary>ƒzƒXƒg–¼orIP</summary>
+        /// <summary>ãƒ›ã‚¹ãƒˆåorIP</summary>
         public string strHost;
-        public string Host { get { return strHost; } set { strHost = value; } }
-        /// <summary>ƒŠƒ‚[ƒgƒƒO–¼</summary>
+        public string Host { get => strHost; set => strHost = value; }
+        /// <summary>ãƒªãƒ¢ãƒ¼ãƒˆãƒ­ã‚°å</summary>
         public string strRemoteLog;
-        public string RemoteLog { get { return strRemoteLog; } set { strRemoteLog = value; } }
-        /// <summary>ƒ†[ƒU[–¼</summary>
+        public string RemoteLog { get => strRemoteLog; set => strRemoteLog = value; }
+        /// <summary>ãƒ¦ãƒ¼ã‚¶ãƒ¼å</summary>
         public string strUser;
-        public string User { get { return strUser; } set { strUser = value; } }
-        /// <summary>“ú•t(DateTime‚Æ‚µ‚È‚¢‚Ì‚ÍŒŸõ‚Ì‚‘¬‰»‚Ì‚½‚ß)</summary>
+        public string User { get => strUser; set => strUser = value; }
+        /// <summary>æ—¥ä»˜(DateTimeã¨ã—ãªã„ã®ã¯æ¤œç´¢ã®é«˜é€ŸåŒ–ã®ãŸã‚)</summary>
         public long lDate;
-        public string Date { get { return (new DateTime(lDate)).ToString("yyyy/MM/dd HH:mm:ss"); } }
-        /// <summary>ƒƒ\ƒbƒh</summary>
+        public string Date => (new DateTime(lDate)).ToString("yyyy/MM/dd HH:mm:ss");
+        /// <summary>ãƒ¡ã‚½ãƒƒãƒ‰</summary>
         public EMethod eMethod;
-        public EMethod Method { get { return eMethod; } set { eMethod = value; } }
-        /// <summary>ƒŠƒNƒGƒXƒgæ</summary>
+        public EMethod Method { get => eMethod; set => eMethod = value; }
+        /// <summary>ãƒªã‚¯ã‚¨ã‚¹ãƒˆå…ˆ</summary>
         public string strRequested;
-        public string Requested { get { return strRequested; } set { strRequested = value; } }
-        /// <summary>HTTP‚Ìƒo[ƒWƒ‡ƒ“</summary>
+        public string Requested { get => strRequested; set => strRequested = value; }
+        /// <summary>HTTPã®ãƒãƒ¼ã‚¸ãƒ§ãƒ³</summary>
         public EHTTP eHTTP;
-        public string HTTP { get { return (eHTTP == EHTTP.HTTP10) ? "HTTP 1.0" : "HTTP 1.1"; } set { eHTTP = (value == "HTTP 1.0") ? EHTTP.HTTP10 : EHTTP.HTTP11; } }
-        /// <summary>ƒXƒe[ƒ^ƒXƒR[ƒh</summary>
+        public string HTTP { get => (eHTTP == EHTTP.HTTP10) ? "HTTP 1.0" : "HTTP 1.1"; set => eHTTP = (value == "HTTP 1.0") ? EHTTP.HTTP10 : EHTTP.HTTP11; }
+        /// <summary>ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ã‚³ãƒ¼ãƒ‰</summary>
         public short sStatus = 0;
-        public short Status { get { return sStatus; } set { sStatus = value; } }
-        /// <summary>“]‘——Ê</summary>
+        public short Status { get => sStatus; set => sStatus = value; }
+        /// <summary>è»¢é€é‡</summary>
         public int iSendSize = 0;
-        public int SendSize { get { return iSendSize; } set { iSendSize = value; } }
-        /// <summary>QÆŒ³</summary>
+        public int SendSize { get => iSendSize; set => iSendSize = value; }
+        /// <summary>å‚ç…§å…ƒ</summary>
         public string strReferer;
-        public string Referer { get { return strReferer; } set { strReferer = value; } }
-        /// <summary>ƒ†[ƒU[ƒG[ƒWƒFƒ“ƒg</summary>
+        public string Referer { get => strReferer; set => strReferer = value; }
+        /// <summary>ãƒ¦ãƒ¼ã‚¶ãƒ¼ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆ</summary>
         public string strUserAgent;
-        public string UserAgent { get { return strUserAgent; } set { strUserAgent = value; } }
+        public string UserAgent { get => strUserAgent; set => strUserAgent = value; }
     }
 
-    /// <summary>ˆêƒtƒ@ƒCƒ‹“à‚Ì‘S‚Ä‚ÌƒƒO‚ğŠi”[‚·‚é</summary>
+    /// <summary>ä¸€ãƒ•ã‚¡ã‚¤ãƒ«å†…ã®å…¨ã¦ã®ãƒ­ã‚°ã‚’æ ¼ç´ã™ã‚‹</summary>
     public class LogFile
     {
         public string FileName;
         public Log[] LogList = new Log[0];
         private volatile bool canceled = false;
 
-        /// <summary>“Á’è‚Ìƒtƒ@ƒCƒ‹‚ğŠJ‚­</summary>
-        /// <param name="filename">ƒtƒ@ƒCƒ‹–¼</param>
-        /// <param name="option">“Ç‚İ‚İƒIƒvƒVƒ‡ƒ“</param>
-        /// <returns>ÅŒã‚Ü‚Å“Ç‚İ‚ñ‚¾‚©‚Ç‚¤‚©</returns>
+        /// <summary>ç‰¹å®šã®ãƒ•ã‚¡ã‚¤ãƒ«ã‚’é–‹ã</summary>
+        /// <param name="filename">ãƒ•ã‚¡ã‚¤ãƒ«å</param>
+        /// <param name="option">èª­ã¿è¾¼ã¿ã‚ªãƒ—ã‚·ãƒ§ãƒ³</param>
+        /// <returns>æœ€å¾Œã¾ã§èª­ã¿è¾¼ã‚“ã ã‹ã©ã†ã‹</returns>
         public bool Read(string filename, LogReadOption option)
         {
             canceled = false;
@@ -71,7 +71,7 @@ namespace MifuminLib.AccessAnalyzer
             var buffer = new byte[GetBufferSize(option)];
             if (File.Exists(filename))
             {
-                BinaryReader binReader = new BinaryReader(
+                var binReader = new BinaryReader(
                     new BufferedStream(File.Open(filename, FileMode.Open), 1024 * 1024)
                     );
                 try
@@ -80,16 +80,26 @@ namespace MifuminLib.AccessAnalyzer
                     // %s %s %s [%02d/%3s/%04d:%02d:%02d:%02d %1s%04d] \"%s %s %s\" %3d %d \"%s\" \"%s\"
                     while (true)
                     {
-                        if (canceled) break;
+                        if (canceled)
+                        {
+                            break;
+                        }
+
                         var l = ReadLine(binReader, option, buffer);
-                        if (option.filter.Match(l)) list.AddLast(l);
+                        if (l != null && option.filter.Match(l))
+                        {
+                            list.AddLast(l);
+                        }
                     }
                 }
                 catch (EndOfStreamException) { }
                 finally { binReader.Close(); }
                 LogList = new Log[list.Count];
-                int num = 0;
-                foreach (Log l in list) LogList[num++] = l;
+                var num = 0;
+                foreach (var l in list)
+                {
+                    LogList[num++] = l;
+                }
             }
             return !canceled;
         }
@@ -100,46 +110,57 @@ namespace MifuminLib.AccessAnalyzer
             int day, month, year, hour, minute, second;
             byte buf, old;
 
-            var l = new Log();
-            l.parent = this;
+            var l = new Log
+            {
+                parent = this
+            };
 
-            // ƒzƒXƒg/IP
+            // ãƒ›ã‚¹ãƒˆ/IP
             size = 0; buffersize = option.hostBuffer;
             while (true)
             {
                 buf = binReader.ReadByte();
                 if (buf == ' ') { l.Host = GetString(buffer, 0, size); break; }
                 else if (buf == '\n' || buf == '\r') { return null; }
-                if (size < buffersize) buffer[size++] = buf;
+                if (size < buffersize)
+                {
+                    buffer[size++] = buf;
+                }
             }
 
-            // ƒŠƒ‚[ƒgƒƒO–¼
+            // ãƒªãƒ¢ãƒ¼ãƒˆãƒ­ã‚°å
             size = 0; buffersize = option.remoteLogBuffer;
             while (true)
             {
                 buf = binReader.ReadByte();
                 if (buf == ' ') { l.RemoteLog = GetString(buffer, 0, size); break; }
                 else if (buf == '\n' || buf == '\r') { return null; }
-                if (size < buffersize) buffer[size++] = buf;
+                if (size < buffersize)
+                {
+                    buffer[size++] = buf;
+                }
             }
 
-            // ƒ†[ƒU[–¼
+            // ãƒ¦ãƒ¼ã‚¶ãƒ¼å
             size = 0; buffersize = option.userBuffer;
             while (true)
             {
                 buf = binReader.ReadByte();
                 if (buf == ' ') { l.User = GetString(buffer, 0, size); break; }
                 else if (buf == '\n' || buf == '\r') { return null; }
-                if (size < buffersize) buffer[size++] = buf;
+                if (size < buffersize)
+                {
+                    buffer[size++] = buf;
+                }
             }
 
-            // (è”²‚«‚ÅƒGƒ‰[ƒ`ƒFƒbƒN‚µ‚Ä‚È‚¢)
+            // æ™‚åˆ»(æ‰‹æŠœãã§ã‚¨ãƒ©ãƒ¼ãƒã‚§ãƒƒã‚¯ã—ã¦ãªã„)
             size = 0;
             binReader.ReadByte();   // '['
-            day = (binReader.ReadByte() - '0') * 10 + (binReader.ReadByte() - '0'); // “ú
+            day = (binReader.ReadByte() - '0') * 10 + (binReader.ReadByte() - '0'); // æ—¥
             binReader.ReadByte();   // '/'
 
-            // Œ(Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec)
+            // æœˆ(Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec)
             buffer[0] = binReader.ReadByte();
             buffer[1] = binReader.ReadByte();
             buffer[2] = binReader.ReadByte();
@@ -158,18 +179,18 @@ namespace MifuminLib.AccessAnalyzer
             else { month = 0; }
             binReader.ReadByte();   // '/'
             year = (binReader.ReadByte() - '0') * 1000 + (binReader.ReadByte() - '0') * 100
-                + (binReader.ReadByte() - '0') * 10 + (binReader.ReadByte() - '0'); // ”N
+                + (binReader.ReadByte() - '0') * 10 + (binReader.ReadByte() - '0'); // å¹´
             binReader.ReadByte();   // ':'
-            hour = (binReader.ReadByte() - '0') * 10 + (binReader.ReadByte() - '0'); // 
+            hour = (binReader.ReadByte() - '0') * 10 + (binReader.ReadByte() - '0'); // æ™‚
             binReader.ReadByte();   // ':'
-            minute = (binReader.ReadByte() - '0') * 10 + (binReader.ReadByte() - '0'); // •ª
+            minute = (binReader.ReadByte() - '0') * 10 + (binReader.ReadByte() - '0'); // åˆ†
             binReader.ReadByte();   // ':'
-            second = (binReader.ReadByte() - '0') * 10 + (binReader.ReadByte() - '0'); // •b
+            second = (binReader.ReadByte() - '0') * 10 + (binReader.ReadByte() - '0'); // ç§’
             binReader.ReadBytes(9);   // ' +0900] "'
             try { l.lDate = (new DateTime(year, month, day, hour, minute, second)).Ticks; }
             catch (ArgumentOutOfRangeException) { l.lDate = 0; }
 
-            // ƒƒ\ƒbƒh
+            // ãƒ¡ã‚½ãƒƒãƒ‰
             buf = binReader.ReadByte();
             if (buf == 'G') { l.eMethod = Log.EMethod.GET; }
             else if (buf == 'P')
@@ -189,22 +210,25 @@ namespace MifuminLib.AccessAnalyzer
             else { l.eMethod = Log.EMethod.UNKNOWN; }
             while (binReader.ReadByte() != ' ') { }
 
-            // ƒŠƒNƒGƒXƒgæ
+            // ãƒªã‚¯ã‚¨ã‚¹ãƒˆå…ˆ
             size = 0; buffersize = option.requestedBuffer;
             while (true)
             {
                 buf = binReader.ReadByte();
                 if (buf == ' ') { l.Requested = GetString(buffer, 0, size); break; }
                 else if (buf == '\n' || buf == '\r') { return null; }
-                if (size < buffersize) buffer[size++] = buf;
+                if (size < buffersize)
+                {
+                    buffer[size++] = buf;
+                }
             }
 
-            // HTTP(‚â‚Á‚Ï‚èè”²‚«‚ÅƒGƒ‰[ƒ`ƒFƒbƒN‚È‚µ)
+            // HTTP(ã‚„ã£ã±ã‚Šæ‰‹æŠœãã§ã‚¨ãƒ©ãƒ¼ãƒã‚§ãƒƒã‚¯ãªã—)
             binReader.ReadBytes(7);   // 'HTTP/1.'
             l.eHTTP = binReader.ReadByte() == '0' ? Log.EHTTP.HTTP10 : Log.EHTTP.HTTP11;
             binReader.ReadBytes(2);   // '" '
-            
-            // ƒXƒe[ƒ^ƒXƒR[ƒh
+
+            // ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ã‚³ãƒ¼ãƒ‰
             while (true)
             {
                 buf = binReader.ReadByte();
@@ -213,7 +237,7 @@ namespace MifuminLib.AccessAnalyzer
                 else if (buf == '\n' || buf == '\r') { return null; }
             }
 
-            // “]‘——Ê
+            // è»¢é€é‡
             while (true)
             {
                 buf = binReader.ReadByte();
@@ -221,15 +245,15 @@ namespace MifuminLib.AccessAnalyzer
                 else if (buf == ' ') { break; }
                 else if (buf == '\n' || buf == '\r')
                 {
-                    // ‚±‚±‚Å‚Ì¸”s‚Ì‚İ“Á•Ê‚Èˆ—‚ğ‚·‚é
-                    // (combined‚Æ‚µ‚Ä‚Í¸”s‚¾‚ªcommon‚Æ‚µ‚Ä‚Í¬Œ÷)
+                    // ã“ã“ã§ã®å¤±æ•—ã®ã¿ç‰¹åˆ¥ãªå‡¦ç†ã‚’ã™ã‚‹
+                    // (combinedã¨ã—ã¦ã¯å¤±æ•—ã ãŒcommonã¨ã—ã¦ã¯æˆåŠŸ)
                     l.Referer = "";
                     l.UserAgent = "";
                     return l;
                 }
             }
 
-            // ƒŠƒtƒ@ƒ‰
+            // ãƒªãƒ•ã‚¡ãƒ©
             binReader.ReadByte();   // '"'
             size = 0; buffersize = option.refererBuffer;
             old = 0;
@@ -238,12 +262,16 @@ namespace MifuminLib.AccessAnalyzer
                 buf = binReader.ReadByte();
                 if (buf == '"' && old != '\\') { l.Referer = GetString(buffer, 0, size); break; }
                 else if (buf == '\n' || buf == '\r') { return null; }
-                if (size < buffersize) buffer[size++] = buf;
+                if (size < buffersize)
+                {
+                    buffer[size++] = buf;
+                }
+
                 old = buf;
             }
             binReader.ReadByte();   // ' '
-            
-            // ƒ†[ƒU[ƒG[ƒWƒFƒ“ƒg
+
+            // ãƒ¦ãƒ¼ã‚¶ãƒ¼ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆ
             binReader.ReadByte();   // '"'
             size = 0; buffersize = option.userAgentBuffer;
             old = 0;
@@ -252,7 +280,11 @@ namespace MifuminLib.AccessAnalyzer
                 buf = binReader.ReadByte();
                 if (buf == '"' && old != '\\') { l.UserAgent = GetString(buffer, 0, size); break; }
                 else if (buf == '\n' || buf == '\r') { return null; }
-                if (size < buffersize) buffer[size++] = buf;
+                if (size < buffersize)
+                {
+                    buffer[size++] = buf;
+                }
+
                 old = buf;
             }
             binReader.ReadByte();   // '\n'
@@ -263,7 +295,7 @@ namespace MifuminLib.AccessAnalyzer
         private string GetString(byte[] array, int offset, int size)
         {
             var sb = new StringBuilder();
-            for (int i = offset; i < offset + size; i++)
+            for (var i = offset; i < offset + size; i++)
             {
                 var b = array[i];
                 if (0x20 <= b && b < 0x7f)
@@ -278,9 +310,9 @@ namespace MifuminLib.AccessAnalyzer
             return sb.ToString();
         }
 
-        /// <summary>‚·‚Å‚ÉŠJ‚¢‚½ƒtƒ@ƒCƒ‹‚ğİ’è‚ğ•Ï‚¦‚Ä“Ç‚İ’¼‚·</summary>
-        /// <param name="option">“Ç‚İ‚İƒIƒvƒVƒ‡ƒ“</param>
-        /// <returns>ÅŒã‚Ü‚Å“Ç‚İ‚ñ‚¾‚©‚Ç‚¤‚©</returns>
+        /// <summary>ã™ã§ã«é–‹ã„ãŸãƒ•ã‚¡ã‚¤ãƒ«ã‚’è¨­å®šã‚’å¤‰ãˆã¦èª­ã¿ç›´ã™</summary>
+        /// <param name="option">èª­ã¿è¾¼ã¿ã‚ªãƒ—ã‚·ãƒ§ãƒ³</param>
+        /// <returns>æœ€å¾Œã¾ã§èª­ã¿è¾¼ã‚“ã ã‹ã©ã†ã‹</returns>
         public bool Reload(LogReadOption option)
         { return Read(FileName, option); }
 
@@ -289,42 +321,64 @@ namespace MifuminLib.AccessAnalyzer
 
         private int GetBufferSize(LogReadOption option)
         {
-            int size = 3;   // Å’á‚Å‚à3ƒoƒCƒg‚Ìƒoƒbƒtƒ@‚ğg—p‚·‚é
-            if (size < option.hostBuffer) size = option.hostBuffer;
-            if (size < option.remoteLogBuffer) size = option.remoteLogBuffer;
-            if (size < option.userBuffer) size = option.userBuffer;
-            if (size < option.requestedBuffer) size = option.requestedBuffer;
-            if (size < option.refererBuffer) size = option.refererBuffer;
-            if (size < option.userAgentBuffer) size = option.userAgentBuffer;
+            var size = 3;   // æœ€ä½ã§ã‚‚3ãƒã‚¤ãƒˆã®ãƒãƒƒãƒ•ã‚¡ã‚’ä½¿ç”¨ã™ã‚‹
+            if (size < option.hostBuffer)
+            {
+                size = option.hostBuffer;
+            }
+
+            if (size < option.remoteLogBuffer)
+            {
+                size = option.remoteLogBuffer;
+            }
+
+            if (size < option.userBuffer)
+            {
+                size = option.userBuffer;
+            }
+
+            if (size < option.requestedBuffer)
+            {
+                size = option.requestedBuffer;
+            }
+
+            if (size < option.refererBuffer)
+            {
+                size = option.refererBuffer;
+            }
+
+            if (size < option.userAgentBuffer)
+            {
+                size = option.userAgentBuffer;
+            }
+
             return size;
         }
     }
 
     public class LogReadOption
     {
-        public int hostBuffer = 255;        // —LŒø‚ÈƒzƒXƒg–¼‚Í255•¶šˆÈ‰º
-        public int remoteLogBuffer = 256;   // ‚í‚©‚ç‚ñ‚¯‚Ç”O‚Ì‚½‚ß256—pˆÓ‚µ‚Æ‚­
-        public int userBuffer = 256;        // ‚í‚©‚ç‚ñ‚¯‚Ç”O‚Ì‚½‚ß256—pˆÓ‚µ‚Æ‚­
-        public int requestedBuffer = 1024;  // 1024‚à“Ç‚İ‚ß‚ê‚Î[•ª‚Å‚µ‚å‚¤
-        public int refererBuffer = 1024;    // 1024‚à“Ç‚İ‚ß‚ê‚Î[•ª‚Å‚µ‚å‚¤
-        public int userAgentBuffer = 1024;  // 1024‚à“Ç‚İ‚ß‚ê‚Î[•ª‚Å‚µ‚å‚¤
+        public int hostBuffer = 255;        // æœ‰åŠ¹ãªãƒ›ã‚¹ãƒˆåã¯255æ–‡å­—ä»¥ä¸‹
+        public int remoteLogBuffer = 256;   // ã‚ã‹ã‚‰ã‚“ã‘ã©å¿µã®ãŸã‚256ç”¨æ„ã—ã¨ã
+        public int userBuffer = 256;        // ã‚ã‹ã‚‰ã‚“ã‘ã©å¿µã®ãŸã‚256ç”¨æ„ã—ã¨ã
+        public int requestedBuffer = 1024;  // 1024ã‚‚èª­ã¿è¾¼ã‚ã‚Œã°å……åˆ†ã§ã—ã‚‡ã†
+        public int refererBuffer = 1024;    // 1024ã‚‚èª­ã¿è¾¼ã‚ã‚Œã°å……åˆ†ã§ã—ã‚‡ã†
+        public int userAgentBuffer = 1024;  // 1024ã‚‚èª­ã¿è¾¼ã‚ã‚Œã°å……åˆ†ã§ã—ã‚‡ã†
         public LogFilter filter = new LogFilterAll();
     }
 
     public delegate void UpdateFunc(Log[] logs);
 
-    /// <summary>ƒƒO“Š‡ƒNƒ‰ƒX</summary>
+    /// <summary>ãƒ­ã‚°çµ±æ‹¬ã‚¯ãƒ©ã‚¹</summary>
     public class AccessLog
     {
-        LogFile[] AllLog = new LogFile[0];  // ƒtƒ@ƒCƒ‹‚²‚Æ‚ÌƒƒO‚Ì“à—e
-        Log[] Target = new Log[0];          // Šî–{“I‚É•\¦‚âÚ‚µ‚¢‰ğÍ‚È‚Ç‚Í‚±‚ÌTarget‚É‘Î‚µ‚Äs‚¤
-        LogFilter analyzeFilter = new LogFilterAll();
-        UpdateFunc UpdateFuncs;
-        Form owner;
-        LogFile NowLoading = null;          // “Ç‚İ‚İ’†‚ÌƒƒO
-        LogReadOption readOption = new LogReadOption();
-        public LogReadOption ReadOption
-        { get { return readOption; } }
+        private LogFile[] AllLog = new LogFile[0];  // ãƒ•ã‚¡ã‚¤ãƒ«ã”ã¨ã®ãƒ­ã‚°ã®å†…å®¹
+        private Log[] Target = new Log[0];          // åŸºæœ¬çš„ã«è¡¨ç¤ºã‚„è©³ã—ã„è§£æãªã©ã¯ã“ã®Targetã«å¯¾ã—ã¦è¡Œã†
+        private LogFilter analyzeFilter = new LogFilterAll();
+        private UpdateFunc UpdateFuncs;
+        private Form owner;
+        private LogFile NowLoading = null;          // èª­ã¿è¾¼ã¿ä¸­ã®ãƒ­ã‚°
+        public LogReadOption ReadOption { get; } = new LogReadOption();
 
 
         public AccessLog(Form owner)
@@ -332,29 +386,38 @@ namespace MifuminLib.AccessAnalyzer
             this.owner = owner;
         }
 
-        /// <summary>ƒtƒ@ƒCƒ‹‚ğ“Ç‚İ‚ñ‚ÅƒƒO‚É’Ç‰Á‚·‚é</summary>
-        /// <param name="filenames">ƒtƒ@ƒCƒ‹–¼‚Ì”z—ñ</param>
+        /// <summary>ãƒ•ã‚¡ã‚¤ãƒ«ã‚’èª­ã¿è¾¼ã‚“ã§ãƒ­ã‚°ã«è¿½åŠ ã™ã‚‹</summary>
+        /// <param name="filenames">ãƒ•ã‚¡ã‚¤ãƒ«åã®é…åˆ—</param>
         public void Read(string[] filenames)
         {
-            int nOldLength = AllLog.Length;
-            bool continueload = true;
+            var nOldLength = AllLog.Length;
+            var continueload = true;
             Array.Resize(ref AllLog, nOldLength + filenames.Length);
-            for (int i = 0; i < filenames.Length; i++)
+            for (var i = 0; i < filenames.Length; i++)
             {
                 NowLoading = AllLog[nOldLength + i] = new LogFile();
-                if (continueload) continueload = NowLoading.Read(filenames[i], readOption);
-                else NowLoading.FileName = filenames[i];
+                if (continueload)
+                {
+                    continueload = NowLoading.Read(filenames[i], ReadOption);
+                }
+                else
+                {
+                    NowLoading.FileName = filenames[i];
+                }
             }
             lock (this) { NowLoading = null; }
             Update();
         }
         public void Release(LogFile file)
         {
-            LogFile[] newLog = new LogFile[AllLog.Length - 1];
-            int i = 0;
-            foreach (LogFile lf in AllLog)
+            var newLog = new LogFile[AllLog.Length - 1];
+            var i = 0;
+            foreach (var lf in AllLog)
             {
-                if (lf != file) newLog[i++] = lf;
+                if (lf != file)
+                {
+                    newLog[i++] = lf;
+                }
             }
             if (i == newLog.Length)
             {
@@ -369,13 +432,13 @@ namespace MifuminLib.AccessAnalyzer
         }
         public LogFilter ReadFilter
         {
-            set { readOption.filter = value; }
-            get { return readOption.filter; }
+            set => ReadOption.filter = value;
+            get => ReadOption.filter;
         }
         public LogFilter AnalyzeFilter
         {
             set { analyzeFilter = value; Target = GetLogs(); Update(); }
-            get { return analyzeFilter; }
+            get => analyzeFilter;
         }
         public void Update()
         {
@@ -389,28 +452,43 @@ namespace MifuminLib.AccessAnalyzer
         public void RemoveUpdateFunc(UpdateFunc update) { UpdateFuncs -= update; }
         public Log[] GetLogs()
         {
-            LinkedList<Log> list = new LinkedList<Log>();
-            foreach (LogFile file in AllLog)
-                foreach (Log log in file.LogList)
-                    if (analyzeFilter.Match(log)) list.AddLast(log);
-            Log[] ret = new Log[list.Count];
-            int num = 0;
-            foreach (Log log in list) ret[num++] = log;
+            var list = new LinkedList<Log>();
+            foreach (var file in AllLog)
+            {
+                foreach (var log in file.LogList)
+                {
+                    if (analyzeFilter.Match(log))
+                    {
+                        list.AddLast(log);
+                    }
+                }
+            }
+
+            var ret = new Log[list.Count];
+            var num = 0;
+            foreach (var log in list)
+            {
+                ret[num++] = log;
+            }
+
             return ret;
         }
         public Log[] GetTarget() { return Target; }
         public LogFile[] GetFile() { return AllLog; }
         public void Reload(LogFile file)
         {
-            (NowLoading = file).Reload(readOption);
+            (NowLoading = file).Reload(ReadOption);
             lock (this) { NowLoading = null; }
             Update();
         }
         public void ReloadAll()
         {
-            foreach (LogFile file in AllLog)
+            foreach (var file in AllLog)
             {
-                if (!(NowLoading = file).Reload(readOption)) break;
+                if (!(NowLoading = file).Reload(ReadOption))
+                {
+                    break;
+                }
             }
             lock (this) { NowLoading = null; }
             Update();
@@ -420,7 +498,10 @@ namespace MifuminLib.AccessAnalyzer
         {
             lock (this)
             {
-                if (NowLoading != null) NowLoading.Cancel();
+                if (NowLoading != null)
+                {
+                    NowLoading.Cancel();
+                }
             }
         }
     }
