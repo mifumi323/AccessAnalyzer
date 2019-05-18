@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
 using System.Web;
 
@@ -103,6 +104,7 @@ namespace MifuminLib.AccessAnalyzer
                 case "app.websearch.rakuten.co.jp":
                 case "websearch.rakuten.co.jp":
                     return GetSearchSimpleQuery(uri, "qt");
+                case "gtech.starthome.jp":
                 case "home.kingsoft.jp":
                 case "pex.jp":
                 case "wakwakpc.starthome.jp":
@@ -130,6 +132,9 @@ namespace MifuminLib.AccessAnalyzer
                     return GetSearchSimpleQuery(uri, "q") ?? GetSearchSimpleQuery(uri, "search");
                 case "japaneseclass.jp":
                     return HttpUtility.UrlDecode(uriString.Split('/').Last());
+                case "guzome.com":
+                case "kabegami10.com":
+                    return HttpUtility.UrlDecode(Path.GetFileNameWithoutExtension(uriString));
                 default:
                     break;
             }
