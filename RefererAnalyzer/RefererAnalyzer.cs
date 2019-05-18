@@ -134,6 +134,8 @@ namespace MifuminLib.AccessAnalyzer
                     return HttpUtility.UrlDecode(uriString.Split('/').Last());
                 case "guzome.com":
                 case "kabegami10.com":
+                case "kabukabu.me":
+                case "menimeni.com":
                     return HttpUtility.UrlDecode(Path.GetFileNameWithoutExtension(uriString));
                 default:
                     break;
