@@ -75,6 +75,7 @@ namespace MifuminLib.AccessAnalyzer
                 case "v-buster.jword.jp":
                 case "websearch.excite.co.jp":
                 case "www.bing.com":
+                case "www.ecosia.org":
                 case "www.google.co.kr":
                 case "www.google.com":
                 case "www.google.com.br":
