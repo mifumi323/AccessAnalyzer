@@ -724,7 +724,7 @@ namespace MifuminLib.AccessAnalyzer
         public LogFilterHost(string matches, bool ignoreCase, MatchRule matchRule) : base(matches, ignoreCase, matchRule) { }
         public LogFilterHost(long min, long max) : base(min, max) { }
 
-        public override bool Match(Log l) { return Match(l.strHost); }
+        public override bool Match(Log l) { return Match(l.Host); }
         public override ELogFilter FilterType() { return ELogFilter.Host; }
         public override string ToString() { return ToString("ホスト名/IP"); }
     }
@@ -736,7 +736,7 @@ namespace MifuminLib.AccessAnalyzer
         public LogFilterRemoteLog(string matches, bool ignoreCase, MatchRule matchRule) : base(matches, ignoreCase, matchRule) { }
         public LogFilterRemoteLog(long min, long max) : base(min, max) { }
 
-        public override bool Match(Log l) { return Match(l.strRemoteLog); }
+        public override bool Match(Log l) { return Match(l.RemoteLog); }
         public override ELogFilter FilterType() { return ELogFilter.RemoteLog; }
         public override string ToString() { return ToString("リモートログ名"); }
     }
@@ -748,7 +748,7 @@ namespace MifuminLib.AccessAnalyzer
         public LogFilterUser(string matches, bool ignoreCase, MatchRule matchRule) : base(matches, ignoreCase, matchRule) { }
         public LogFilterUser(long min, long max) : base(min, max) { }
 
-        public override bool Match(Log l) { return Match(l.strUser); }
+        public override bool Match(Log l) { return Match(l.User); }
         public override ELogFilter FilterType() { return ELogFilter.User; }
         public override string ToString() { return ToString("ユーザー名"); }
     }
@@ -826,7 +826,7 @@ namespace MifuminLib.AccessAnalyzer
     public class LogFilterMethod : LogFilterEnum
     {
         public LogFilterMethod() : base(typeof(Log.EMethod)) { }
-        public override bool Match(Log l) { return Match(l.eMethod); }
+        public override bool Match(Log l) { return Match(l.Method); }
         public override ELogFilter FilterType() { return ELogFilter.Method; }
         public override string ToString() { return ToString("メソッド"); }
     }
@@ -838,7 +838,7 @@ namespace MifuminLib.AccessAnalyzer
         public LogFilterRequested(string matches, bool ignoreCase, MatchRule matchRule) : base(matches, ignoreCase, matchRule) { }
         public LogFilterRequested(long min, long max) : base(min, max) { }
 
-        public override bool Match(Log l) { return Match(l.strRequested); }
+        public override bool Match(Log l) { return Match(l.Requested); }
         public override ELogFilter FilterType() { return ELogFilter.Requested; }
         public override string ToString() { return ToString("リクエスト先"); }
     }
@@ -858,7 +858,7 @@ namespace MifuminLib.AccessAnalyzer
         public LogFilterStatusCode() { }
         public LogFilterStatusCode(long min, long max) : base(min, max) { }
 
-        public override bool Match(Log l) { return Match(l.sStatus); }
+        public override bool Match(Log l) { return Match(l.Status); }
         public override ELogFilter FilterType() { return ELogFilter.StatusCode; }
 
         public override long LowerLimit() { return 100; }
@@ -872,7 +872,7 @@ namespace MifuminLib.AccessAnalyzer
         public LogFilterSendSize() { }
         public LogFilterSendSize(long min, long max) : base(min, max) { }
 
-        public override bool Match(Log l) { return Match(l.iSendSize); }
+        public override bool Match(Log l) { return Match(l.SendSize); }
         public override ELogFilter FilterType() { return ELogFilter.SendSize; }
 
         public override string ToString() { return ToString("時間"); }
@@ -898,7 +898,7 @@ namespace MifuminLib.AccessAnalyzer
         public LogFilterReferer(string matches, bool ignoreCase, MatchRule matchRule) : base(matches, ignoreCase, matchRule) { }
         public LogFilterReferer(long min, long max) : base(min, max) { }
 
-        public override bool Match(Log l) { return Match(l.strReferer); }
+        public override bool Match(Log l) { return Match(l.Referer); }
         public override ELogFilter FilterType() { return ELogFilter.Referer; }
         public override string ToString() { return ToString("リファラ"); }
     }
@@ -912,9 +912,9 @@ namespace MifuminLib.AccessAnalyzer
 
         public override bool Match(Log l)
         {
-            if (l.strReferer.Contains("://"))
+            if (l.Referer.Contains("://"))
             {
-                try { return Match(new Uri(l.strReferer).Host); }
+                try { return Match(new Uri(l.Referer).Host); }
                 catch (Exception) { }
             }
             return false;
@@ -934,10 +934,10 @@ namespace MifuminLib.AccessAnalyzer
 
         public override bool Match(Log l)
         {
-            if (l.strReferer == null || l.strReferer.Length < 8) return false;
+            if (l.Referer == null || l.Referer.Length < 8) return false;
             try
             {
-                var phrase = refererAnalyzer.GetSearchQuery(l.strReferer);
+                var phrase = refererAnalyzer.GetSearchQuery(l.Referer);
                 if (!string.IsNullOrWhiteSpace(phrase))
                 {
                     return Match(phrase);
@@ -960,7 +960,7 @@ namespace MifuminLib.AccessAnalyzer
         public LogFilterUserAgent(string matches, bool ignoreCase, MatchRule matchRule) : base(matches, ignoreCase, matchRule) { }
         public LogFilterUserAgent(long min, long max) : base(min, max) { }
 
-        public override bool Match(Log l) { return Match(l.strUserAgent); }
+        public override bool Match(Log l) { return Match(l.UserAgent); }
         public override ELogFilter FilterType() { return ELogFilter.UserAgent; }
         public override string ToString() { return ToString("ユーザーエージェント"); }
     }

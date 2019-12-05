@@ -15,41 +15,30 @@ namespace MifuminLib.AccessAnalyzer
         public enum EMethod : byte { UNKNOWN, GET, HEAD, POST, PUT, DELETE, CONNECT, OPTIONS, TRACE, LINK, UNLINK }
         public enum EHTTP : byte { HTTP10, HTTP11 }
 
-        public LogFile parent;
-
         /// <summary>ホスト名orIP</summary>
-        public string strHost;
-        public string Host { get => strHost; set => strHost = value; }
+        public string Host { get; set; }
         /// <summary>リモートログ名</summary>
-        public string strRemoteLog;
-        public string RemoteLog { get => strRemoteLog; set => strRemoteLog = value; }
+        public string RemoteLog { get; set; }
         /// <summary>ユーザー名</summary>
-        public string strUser;
-        public string User { get => strUser; set => strUser = value; }
+        public string User { get; set; }
         /// <summary>日付(DateTimeとしないのは検索の高速化のため)</summary>
         public long lDate;
         public string Date => (new DateTime(lDate)).ToString("yyyy/MM/dd HH:mm:ss");
         /// <summary>メソッド</summary>
-        public EMethod eMethod;
-        public EMethod Method { get => eMethod; set => eMethod = value; }
+        public EMethod Method { get; set; }
         /// <summary>リクエスト先</summary>
-        public string strRequested;
-        public string Requested { get => strRequested; set => strRequested = value; }
+        public string Requested { get; set; }
         /// <summary>HTTPのバージョン</summary>
         public EHTTP eHTTP;
         public string HTTP { get => (eHTTP == EHTTP.HTTP10) ? "HTTP 1.0" : "HTTP 1.1"; set => eHTTP = (value == "HTTP 1.0") ? EHTTP.HTTP10 : EHTTP.HTTP11; }
         /// <summary>ステータスコード</summary>
-        public short sStatus = 0;
-        public short Status { get => sStatus; set => sStatus = value; }
+        public short Status { get; set; }
         /// <summary>転送量</summary>
-        public int iSendSize = 0;
-        public int SendSize { get => iSendSize; set => iSendSize = value; }
+        public int SendSize { get; set; }
         /// <summary>参照元</summary>
-        public string strReferer;
-        public string Referer { get => strReferer; set => strReferer = value; }
+        public string Referer { get; set; }
         /// <summary>ユーザーエージェント</summary>
-        public string strUserAgent;
-        public string UserAgent { get => strUserAgent; set => strUserAgent = value; }
+        public string UserAgent { get; set; }
     }
 
     /// <summary>一ファイル内の全てのログを格納する</summary>
@@ -110,18 +99,15 @@ namespace MifuminLib.AccessAnalyzer
             int day, month, year, hour, minute, second;
             byte buf, old;
 
-            var l = new Log
-            {
-                parent = this
-            };
+            var l = new Log();
 
             // ホスト/IP
-            size = 0; buffersize = option.hostBuffer;
+            size = 0;
+            buffersize = option.hostBuffer;
             while (true)
             {
                 buf = binReader.ReadByte();
-                if (buf == ' ') { l.Host = GetString(buffer, 0, size); break; }
-                else if (buf == '\n' || buf == '\r') { return null; }
+                if (buf == ' ') { l.Host = GetString(buffer, 0, size); break; } else if (buf == '\n' || buf == '\r') { return null; }
                 if (size < buffersize)
                 {
                     buffer[size++] = buf;
@@ -129,12 +115,12 @@ namespace MifuminLib.AccessAnalyzer
             }
 
             // リモートログ名
-            size = 0; buffersize = option.remoteLogBuffer;
+            size = 0;
+            buffersize = option.remoteLogBuffer;
             while (true)
             {
                 buf = binReader.ReadByte();
-                if (buf == ' ') { l.RemoteLog = GetString(buffer, 0, size); break; }
-                else if (buf == '\n' || buf == '\r') { return null; }
+                if (buf == ' ') { l.RemoteLog = GetString(buffer, 0, size); break; } else if (buf == '\n' || buf == '\r') { return null; }
                 if (size < buffersize)
                 {
                     buffer[size++] = buf;
@@ -142,12 +128,12 @@ namespace MifuminLib.AccessAnalyzer
             }
 
             // ユーザー名
-            size = 0; buffersize = option.userBuffer;
+            size = 0;
+            buffersize = option.userBuffer;
             while (true)
             {
                 buf = binReader.ReadByte();
-                if (buf == ' ') { l.User = GetString(buffer, 0, size); break; }
-                else if (buf == '\n' || buf == '\r') { return null; }
+                if (buf == ' ') { l.User = GetString(buffer, 0, size); break; } else if (buf == '\n' || buf == '\r') { return null; }
                 if (size < buffersize)
                 {
                     buffer[size++] = buf;
@@ -187,36 +173,26 @@ namespace MifuminLib.AccessAnalyzer
             binReader.ReadByte();   // ':'
             second = (binReader.ReadByte() - '0') * 10 + (binReader.ReadByte() - '0'); // 秒
             binReader.ReadBytes(9);   // ' +0900] "'
-            try { l.lDate = (new DateTime(year, month, day, hour, minute, second)).Ticks; }
-            catch (ArgumentOutOfRangeException) { l.lDate = 0; }
+            try { l.lDate = (new DateTime(year, month, day, hour, minute, second)).Ticks; } catch (ArgumentOutOfRangeException) { l.lDate = 0; }
 
             // メソッド
             buf = binReader.ReadByte();
-            if (buf == 'G') { l.eMethod = Log.EMethod.GET; }
+            if (buf == 'G') { l.Method = Log.EMethod.GET; }
             else if (buf == 'P')
             {
                 buf = binReader.ReadByte();
-                if (buf == 'O') { l.eMethod = Log.EMethod.POST; }
-                else if (buf == 'U') { l.eMethod = Log.EMethod.PUT; }
-                else { l.eMethod = Log.EMethod.UNKNOWN; }
+                if (buf == 'O') { l.Method = Log.EMethod.POST; } else if (buf == 'U') { l.Method = Log.EMethod.PUT; } else { l.Method = Log.EMethod.UNKNOWN; }
             }
-            else if (buf == 'H') { l.eMethod = Log.EMethod.HEAD; }
-            else if (buf == 'C') { l.eMethod = Log.EMethod.CONNECT; }
-            else if (buf == 'D') { l.eMethod = Log.EMethod.DELETE; }
-            else if (buf == 'L') { l.eMethod = Log.EMethod.LINK; }
-            else if (buf == 'O') { l.eMethod = Log.EMethod.OPTIONS; }
-            else if (buf == 'T') { l.eMethod = Log.EMethod.TRACE; }
-            else if (buf == 'U') { l.eMethod = Log.EMethod.UNLINK; }
-            else { l.eMethod = Log.EMethod.UNKNOWN; }
+            else if (buf == 'H') { l.Method = Log.EMethod.HEAD; } else if (buf == 'C') { l.Method = Log.EMethod.CONNECT; } else if (buf == 'D') { l.Method = Log.EMethod.DELETE; } else if (buf == 'L') { l.Method = Log.EMethod.LINK; } else if (buf == 'O') { l.Method = Log.EMethod.OPTIONS; } else if (buf == 'T') { l.Method = Log.EMethod.TRACE; } else if (buf == 'U') { l.Method = Log.EMethod.UNLINK; } else { l.Method = Log.EMethod.UNKNOWN; }
             while (binReader.ReadByte() != ' ') { }
 
             // リクエスト先
-            size = 0; buffersize = option.requestedBuffer;
+            size = 0;
+            buffersize = option.requestedBuffer;
             while (true)
             {
                 buf = binReader.ReadByte();
-                if (buf == ' ') { l.Requested = GetString(buffer, 0, size); break; }
-                else if (buf == '\n' || buf == '\r') { return null; }
+                if (buf == ' ') { l.Requested = GetString(buffer, 0, size); break; } else if (buf == '\n' || buf == '\r') { return null; }
                 if (size < buffersize)
                 {
                     buffer[size++] = buf;
@@ -232,16 +208,14 @@ namespace MifuminLib.AccessAnalyzer
             while (true)
             {
                 buf = binReader.ReadByte();
-                if ('0' <= buf && buf <= '9') { l.sStatus = (short)(l.sStatus * 10 + buf - '0'); }
-                else if (buf == ' ') { break; }
-                else if (buf == '\n' || buf == '\r') { return null; }
+                if ('0' <= buf && buf <= '9') { l.Status = (short)(l.Status * 10 + buf - '0'); } else if (buf == ' ') { break; } else if (buf == '\n' || buf == '\r') { return null; }
             }
 
             // 転送量
             while (true)
             {
                 buf = binReader.ReadByte();
-                if ('0' <= buf && buf <= '9') { l.iSendSize = l.iSendSize * 10 + buf - '0'; }
+                if ('0' <= buf && buf <= '9') { l.SendSize = l.SendSize * 10 + buf - '0'; }
                 else if (buf == ' ') { break; }
                 else if (buf == '\n' || buf == '\r')
                 {
@@ -255,13 +229,13 @@ namespace MifuminLib.AccessAnalyzer
 
             // リファラ
             binReader.ReadByte();   // '"'
-            size = 0; buffersize = option.refererBuffer;
+            size = 0;
+            buffersize = option.refererBuffer;
             old = 0;
             while (true)
             {
                 buf = binReader.ReadByte();
-                if (buf == '"' && old != '\\') { l.Referer = GetString(buffer, 0, size); break; }
-                else if (buf == '\n' || buf == '\r') { return null; }
+                if (buf == '"' && old != '\\') { l.Referer = GetString(buffer, 0, size); break; } else if (buf == '\n' || buf == '\r') { return null; }
                 if (size < buffersize)
                 {
                     buffer[size++] = buf;
@@ -273,13 +247,13 @@ namespace MifuminLib.AccessAnalyzer
 
             // ユーザーエージェント
             binReader.ReadByte();   // '"'
-            size = 0; buffersize = option.userAgentBuffer;
+            size = 0;
+            buffersize = option.userAgentBuffer;
             old = 0;
             while (true)
             {
                 buf = binReader.ReadByte();
-                if (buf == '"' && old != '\\') { l.UserAgent = GetString(buffer, 0, size); break; }
-                else if (buf == '\n' || buf == '\r') { return null; }
+                if (buf == '"' && old != '\\') { l.UserAgent = GetString(buffer, 0, size); break; } else if (buf == '\n' || buf == '\r') { return null; }
                 if (size < buffersize)
                 {
                     buffer[size++] = buf;
@@ -313,11 +287,9 @@ namespace MifuminLib.AccessAnalyzer
         /// <summary>すでに開いたファイルを設定を変えて読み直す</summary>
         /// <param name="option">読み込みオプション</param>
         /// <returns>最後まで読み込んだかどうか</returns>
-        public bool Reload(LogReadOption option)
-        { return Read(FileName, option); }
+        public bool Reload(LogReadOption option) { return Read(FileName, option); }
 
-        public void Cancel()
-        { canceled = true; }
+        public void Cancel() { canceled = true; }
 
         private int GetBufferSize(LogReadOption option)
         {
