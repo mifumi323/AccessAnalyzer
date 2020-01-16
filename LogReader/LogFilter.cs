@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Xml;
+using MifuminLib.WellKnownUriParser;
 
 namespace MifuminLib.AccessAnalyzer
 {
@@ -926,7 +927,7 @@ namespace MifuminLib.AccessAnalyzer
     /// <summary>検索に使われた語句に対するフィルタ</summary>
     public class LogFilterSearchPhrase : LogFilterString
     {
-        RefererAnalyzer refererAnalyzer = new RefererAnalyzer();
+        SearchQueryParser refererAnalyzer = new SearchQueryParser();
 
         public LogFilterSearchPhrase() { }
         public LogFilterSearchPhrase(string matches, bool ignoreCase, MatchRule matchRule) : base(matches, ignoreCase, matchRule) { }
@@ -937,7 +938,7 @@ namespace MifuminLib.AccessAnalyzer
             if (l.Referer == null || l.Referer.Length < 8) return false;
             try
             {
-                var phrase = refererAnalyzer.GetSearchQuery(l.Referer);
+                var phrase = refererAnalyzer.FromString(l.Referer);
                 if (!string.IsNullOrWhiteSpace(phrase))
                 {
                     return Match(phrase);

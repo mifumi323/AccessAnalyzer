@@ -5,6 +5,7 @@ using System.Web;
 
 namespace MifuminLib.AccessAnalyzer
 {
+    [Obsolete("同等の機能は MifuminLib.WellKnownUriParser に移行しました。NuGet で MifuminLib.WellKnownUriParser をインストールしてください。")]
     public class RefererAnalyzer
     {
         /// <summary>

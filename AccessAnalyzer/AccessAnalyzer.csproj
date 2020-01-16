@@ -46,6 +46,11 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="MifuminLib.WellKnownUriParser">
+      <Version>0.1.0-alpha1</Version>
+    </PackageReference>
+  </ItemGroup>
   <Import Project="..\RefererAnalyzer\RefererAnalyzer.projitems" Label="Shared" />
   <Import Project="..\LogReader\LogReader.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
