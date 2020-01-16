@@ -152,7 +152,7 @@ namespace MifuminLib.AccessAnalyzer
             using (XmlReader reader = XmlReader.Create(fileName))
             {
                 LogFilter filter = Load(reader);
-                return filter != null ? filter : new LogFilterAll();
+                return filter ?? new LogFilterAll();
             }
         }
 
@@ -583,7 +583,7 @@ namespace MifuminLib.AccessAnalyzer
     public abstract class LogFilterEnum : LogFilter
     {
         public Dictionary<object, bool> Matches;
-        private Type EnumType;
+        private readonly Type EnumType;
 
         public LogFilterEnum(Type enumType)
         {
@@ -927,7 +927,7 @@ namespace MifuminLib.AccessAnalyzer
     /// <summary>検索に使われた語句に対するフィルタ</summary>
     public class LogFilterSearchPhrase : LogFilterString
     {
-        SearchQueryParser refererAnalyzer = new SearchQueryParser();
+        readonly SearchQueryParser refererAnalyzer = new SearchQueryParser();
 
         public LogFilterSearchPhrase() { }
         public LogFilterSearchPhrase(string matches, bool ignoreCase, MatchRule matchRule) : base(matches, ignoreCase, matchRule) { }

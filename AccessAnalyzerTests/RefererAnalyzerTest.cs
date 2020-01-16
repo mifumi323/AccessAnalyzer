@@ -8,7 +8,7 @@ namespace AccessAnalyzerTests
     public class RefererAnalyzerTest
     {
 #pragma warning disable CS0618 // 型またはメンバーが旧型式です
-        RefererAnalyzer _refererAnalyzer = new RefererAnalyzer();
+        readonly RefererAnalyzer _refererAnalyzer = new RefererAnalyzer();
 #pragma warning restore CS0618 // 型またはメンバーが旧型式です
 
         public TestContext TestContext { get; set; }

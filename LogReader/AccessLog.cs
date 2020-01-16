@@ -141,7 +141,6 @@ namespace MifuminLib.AccessAnalyzer
             }
 
             // 時刻(手抜きでエラーチェックしてない)
-            size = 0;
             binReader.ReadByte();   // '['
             day = (binReader.ReadByte() - '0') * 10 + (binReader.ReadByte() - '0'); // 日
             binReader.ReadByte();   // '/'
@@ -348,7 +347,7 @@ namespace MifuminLib.AccessAnalyzer
         private Log[] Target = new Log[0];          // 基本的に表示や詳しい解析などはこのTargetに対して行う
         private LogFilter analyzeFilter = new LogFilterAll();
         private UpdateFunc UpdateFuncs;
-        private Form owner;
+        private readonly Form owner;
         private LogFile NowLoading = null;          // 読み込み中のログ
         public LogReadOption ReadOption { get; } = new LogReadOption();
 
