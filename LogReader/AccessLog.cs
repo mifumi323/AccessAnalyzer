@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using System.Windows.Forms;
 
 namespace MifuminLib.AccessAnalyzer
 {
@@ -347,15 +346,20 @@ namespace MifuminLib.AccessAnalyzer
         private Log[] Target = new Log[0];          // 基本的に表示や詳しい解析などはこのTargetに対して行う
         private LogFilter analyzeFilter = new LogFilterAll();
         private UpdateFunc UpdateFuncs;
-        private readonly Form owner;
+#if DOT_NET_FRAMEWORK
+        private readonly System.Windows.Forms.Form owner;
+#endif
         private LogFile NowLoading = null;          // 読み込み中のログ
         public LogReadOption ReadOption { get; } = new LogReadOption();
 
+        public AccessLog() { }
 
-        public AccessLog(Form owner)
+#if DOT_NET_FRAMEWORK
+        public AccessLog(System.Windows.Forms.Form owner)
         {
             this.owner = owner;
         }
+#endif
 
         /// <summary>ファイルを読み込んでログに追加する</summary>
         /// <param name="filenames">ファイル名の配列</param>
@@ -416,7 +420,20 @@ namespace MifuminLib.AccessAnalyzer
             Target = GetLogs();
             if (UpdateFuncs != null)
             {
-                owner.Invoke(UpdateFuncs, new object[] { Target });
+#if DOT_NET_FRAMEWORK
+                if (owner != null)
+                {
+                    owner.Invoke(UpdateFuncs, new object[] { Target });
+                }
+                else
+                {
+                    UpdateFuncs(Target);
+                }
+#else
+#pragma warning disable IDE1005 // デリゲート呼び出しを簡略化できます。
+                UpdateFuncs(Target);
+#pragma warning restore IDE1005 // デリゲート呼び出しを簡略化できます。
+#endif
             }
         }
         public void AddUpdateFunc(UpdateFunc update) { UpdateFuncs += update; update(Target); }

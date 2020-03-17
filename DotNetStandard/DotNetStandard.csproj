@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyName>MifuminLib.AccessAnalyzer</AssemblyName>
+    <Version>0.1.0-alpha1</Version>
+    <Authors>Mifumi Matsuda</Authors>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <RepositoryUrl>https://github.com/mifumi323/AccessAnalyzer</RepositoryUrl>
+    <Description>Namalyzerプロジェクトから抜き出したロジック部分。
+Apacheのログが読めたらいいなというもの。
+個人的なプロジェクトであり、他者の利用は主たる意図としていませんが、使えることはあるかもしれません。</Description>
+    <Copyright>Copyright 2020 Mifumi Matsuda</Copyright>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <RootNamespace>MifuminLib.AccessAnalyzer</RootNamespace>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MifuminLib.WellKnownUriParser" Version="0.1.0-alpha3" />
+  </ItemGroup>
+
+  <Import Project="..\LogReader\LogReader.projitems" Label="Shared" />
+
+</Project>
