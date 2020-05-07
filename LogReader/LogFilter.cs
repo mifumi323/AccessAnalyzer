@@ -927,7 +927,7 @@ namespace MifuminLib.AccessAnalyzer
     /// <summary>検索に使われた語句に対するフィルタ</summary>
     public class LogFilterSearchPhrase : LogFilterString
     {
-        readonly SearchQueryParser refererAnalyzer = new SearchQueryParser();
+        private readonly SearchQueryPicker refererAnalyzer = new SearchQueryPicker();
 
         public LogFilterSearchPhrase() { }
         public LogFilterSearchPhrase(string matches, bool ignoreCase, MatchRule matchRule) : base(matches, ignoreCase, matchRule) { }

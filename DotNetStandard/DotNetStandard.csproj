@@ -24,7 +24,7 @@ Apacheのログが読めたらいいなというもの。
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="MifuminLib.WellKnownUriParser" Version="0.1.0-alpha3" />
+    <PackageReference Include="MifuminLib.WellKnownUriParser" Version="0.1.0-alpha4" />
   </ItemGroup>
 
   <Import Project="..\LogReader\LogReader.projitems" Label="Shared" />

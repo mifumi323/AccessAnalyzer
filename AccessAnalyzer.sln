@@ -15,16 +15,18 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AccessAnalyzerTests", "Acce
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A037553F-A9B9-44FC-BE37-8404DEB9ADD9}"
 	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
 		.gitignore = .gitignore
 		LICENSE = LICENSE
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetStandard", "DotNetStandard\DotNetStandard.csproj", "{299E0023-C071-4594-B4E2-4E55BD849B64}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotNetStandard", "DotNetStandard\DotNetStandard.csproj", "{299E0023-C071-4594-B4E2-4E55BD849B64}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		LogReader\LogReader.projitems*{253b00f7-8866-4e8e-aef2-912bac236936}*SharedItemsImports = 13
+		LogReader\LogReader.projitems*{299e0023-c071-4594-b4e2-4e55bd849b64}*SharedItemsImports = 5
 		LogReader\LogReader.projitems*{3e5eee8d-e905-47af-be70-18924acf12ab}*SharedItemsImports = 4
 		RefererAnalyzer\RefererAnalyzer.projitems*{3e5eee8d-e905-47af-be70-18924acf12ab}*SharedItemsImports = 4
 		RefererAnalyzer\RefererAnalyzer.projitems*{3e8646b8-48a8-4b8b-bec4-07ec6f250b00}*SharedItemsImports = 13
