@@ -6,7 +6,7 @@ namespace MifuminLib.AccessAnalyzer
     /// ログの一行に相当する
     /// オリジナルのテキストは保持されないので注意
     /// </summary>
-    public class Log
+    public sealed class Log
     {
         public enum EMethod : byte { UNKNOWN, GET, HEAD, POST, PUT, DELETE, CONNECT, OPTIONS, TRACE, LINK, UNLINK }
         public enum EHTTP : byte { HTTP10, HTTP11 }
@@ -19,7 +19,7 @@ namespace MifuminLib.AccessAnalyzer
         public string User { get; set; }
         /// <summary>日付(DateTimeとしないのは検索の高速化のため)</summary>
         public long lDate;
-        public string Date => (new DateTime(lDate)).ToString("yyyy/MM/dd HH:mm:ss");
+        public string Date => new DateTime(lDate).ToString("yyyy/MM/dd HH:mm:ss");
         /// <summary>メソッド</summary>
         public EMethod Method { get; set; }
         /// <summary>リクエスト先</summary>
@@ -35,5 +35,39 @@ namespace MifuminLib.AccessAnalyzer
         public string Referer { get; set; }
         /// <summary>ユーザーエージェント</summary>
         public string UserAgent { get; set; }
+
+        public override bool Equals(object obj)
+        {
+            return obj is Log log
+                && log.Host == Host
+                && log.RemoteLog == RemoteLog
+                && log.lDate == lDate
+                && log.Method == Method
+                && log.Requested == Requested
+                && log.eHTTP == eHTTP
+                && log.Status == Status
+                && log.SendSize == SendSize
+                && log.Referer == Referer
+                && log.UserAgent == UserAgent;
+        }
+
+        public override int GetHashCode()
+        {
+            return Host.GetHashCode()
+                ^ RemoteLog.GetHashCode()
+                ^ lDate.GetHashCode()
+                ^ Method.GetHashCode()
+                ^ Requested.GetHashCode()
+                ^ eHTTP.GetHashCode()
+                ^ Status.GetHashCode()
+                ^ SendSize.GetHashCode()
+                ^ Referer.GetHashCode()
+                ^ UserAgent.GetHashCode();
+        }
+
+        public static Log ParseAsCombined(string line,bool throwOnFail)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
