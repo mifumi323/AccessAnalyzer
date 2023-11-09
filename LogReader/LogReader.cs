@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Text;
 
 namespace LogReader
 {
-    public class LogReader:IDisposable
+    public class LogReader : IDisposable
     {
         private Stream owningStream;
         private StreamReader streamReader;
@@ -16,7 +14,7 @@ namespace LogReader
             streamReader = new StreamReader(stream);
         }
 
-        public LogReader(string path):this(File.OpenRead(path))
+        public LogReader(string path) : this(File.OpenRead(path))
         {
             owningStream = streamReader.BaseStream;
         }
