@@ -12,6 +12,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)AccessLog.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Log.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)LogFilter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LogParser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)LogReader.cs" />
   </ItemGroup>
 </Project>

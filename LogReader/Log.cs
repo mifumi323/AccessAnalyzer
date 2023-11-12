@@ -64,10 +64,5 @@ namespace MifuminLib.AccessAnalyzer
                 ^ Referer.GetHashCode()
                 ^ UserAgent.GetHashCode();
         }
-
-        public static Log ParseAsCombined(string line,bool throwOnFail)
-        {
-            throw new NotImplementedException();
-        }
     }
 }
