@@ -12,12 +12,12 @@ namespace MifuminLib.AccessAnalyzer
 
         public readonly struct ErrorLine
         {
-            public readonly LogParser.State State;
+            public readonly LogParser.ErrorFlag ErrorFlag;
             public readonly string Line;
 
-            public ErrorLine(LogParser.State state, string line)
+            public ErrorLine(LogParser.ErrorFlag errorFlag, string line)
             {
-                State = state;
+                ErrorFlag = errorFlag;
                 Line = line;
             }
         }
@@ -45,7 +45,7 @@ namespace MifuminLib.AccessAnalyzer
                 }
                 else
                 {
-                    onError?.Invoke(new ErrorLine(result.State, line));
+                    onError?.Invoke(new ErrorLine(result.ErrorFlag, line));
                 }
             }
         }
