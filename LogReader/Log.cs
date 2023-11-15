@@ -9,7 +9,7 @@ namespace MifuminLib.AccessAnalyzer
     public sealed class Log
     {
         public enum EMethod : byte { UNKNOWN, GET, HEAD, POST, PUT, DELETE, CONNECT, OPTIONS, TRACE, LINK, UNLINK }
-        public enum EHTTP : byte { HTTP10, HTTP11 }
+        public enum EHTTP : byte { HTTP10, HTTP11, HTTP20 }
 
         /// <summary>ホスト名orIP</summary>
         public string Host { get; set; }
@@ -26,7 +26,40 @@ namespace MifuminLib.AccessAnalyzer
         public string Requested { get; set; }
         /// <summary>HTTPのバージョン</summary>
         public EHTTP eHTTP;
-        public string HTTP { get => (eHTTP == EHTTP.HTTP10) ? "HTTP 1.0" : "HTTP 1.1"; set => eHTTP = (value == "HTTP 1.0") ? EHTTP.HTTP10 : EHTTP.HTTP11; }
+        public string HTTP
+        {
+            get {
+                switch (eHTTP)
+                {
+                    case EHTTP.HTTP10:
+                        return "HTTP 1.0";
+                    case EHTTP.HTTP11:
+                        return "HTTP 1.1";
+                    case EHTTP.HTTP20:
+                        return "HTTP 2.0";
+                    default:
+                        throw new NotImplementedException();
+                }
+            }
+            set
+            {
+                switch (value)
+                {
+                    case "HTTP 1.0":
+                        eHTTP = EHTTP.HTTP10;
+                        break;
+                    case "HTTP 1.1":
+                        eHTTP = EHTTP.HTTP11;
+                        break;
+                    case "HTTP 2.0":
+                        eHTTP = EHTTP.HTTP20;
+                        break;
+                    default:
+                        throw new InvalidOperationException();
+                }
+                eHTTP = (value == "HTTP 1.0") ? EHTTP.HTTP10 : EHTTP.HTTP11;
+            }
+        }
         /// <summary>ステータスコード</summary>
         public short Status { get; set; }
         /// <summary>転送量</summary>

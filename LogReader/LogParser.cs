@@ -234,13 +234,18 @@ namespace MifuminLib.AccessAnalyzer
         {
             switch (http)
             {
+                case "HTTP/1.0":
+                    eHttp = Log.EHTTP.HTTP10;
+                    return true;
                 case "HTTP/1.1":
                     eHttp = Log.EHTTP.HTTP11;
                     return true;
-                default:
-                    // TODO: 1.0と2.0と不正値を弁別する(#5)
-                    eHttp = Log.EHTTP.HTTP10;
+                case "HTTP/2.0":
+                    eHttp = Log.EHTTP.HTTP20;
                     return true;
+                default:
+                    eHttp = default;
+                    return false;
             }
         }
     }

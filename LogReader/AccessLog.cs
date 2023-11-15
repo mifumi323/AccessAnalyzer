@@ -163,8 +163,11 @@ namespace MifuminLib.AccessAnalyzer
             }
 
             // HTTP(やっぱり手抜きでエラーチェックなし)
-            binReader.ReadBytes(7);   // 'HTTP/1.'
-            l.eHTTP = binReader.ReadByte() == '0' ? Log.EHTTP.HTTP10 : Log.EHTTP.HTTP11;
+            binReader.ReadBytes(5);   // 'HTTP/'
+            var httpL = binReader.ReadByte();
+            binReader.ReadByte();   // '.'
+            var httpR = binReader.ReadByte();
+            l.eHTTP = httpL == '2' ? Log.EHTTP.HTTP20 : (httpR == '0' ? Log.EHTTP.HTTP10 : Log.EHTTP.HTTP11);
             binReader.ReadBytes(2);   // '" '
 
             // ステータスコード
