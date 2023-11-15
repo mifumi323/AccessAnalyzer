@@ -74,6 +74,7 @@ namespace MifuminLib.AccessAnalyzer
             return obj is Log log
                 && log.Host == Host
                 && log.RemoteLog == RemoteLog
+                && log.User == User
                 && log.lDate == lDate
                 && log.Method == Method
                 && log.Requested == Requested
@@ -88,6 +89,7 @@ namespace MifuminLib.AccessAnalyzer
         {
             return Host.GetHashCode()
                 ^ RemoteLog.GetHashCode()
+                ^ User.GetHashCode()
                 ^ lDate.GetHashCode()
                 ^ Method.GetHashCode()
                 ^ Requested.GetHashCode()
